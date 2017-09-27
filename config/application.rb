@@ -22,11 +22,10 @@ module EDispensing
 
 
     I18n.available_locales = [:en, :es]
-    config.i18n.default_locale = :es
+    config.i18n.default_locale = :en
 
     config.autoload_paths += %W(#{config.root}/lib)
 
-    config.time_zone = 'Central Time (US & Canada)'
     config.active_record.default_timezone = :local
 
     # Do not swallow errors in after_commit/after_rollback callbacks.

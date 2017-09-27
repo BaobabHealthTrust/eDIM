@@ -73,31 +73,9 @@ class UserController < ApplicationController
     redirect_to "/user" and return
   end
 
-  def login
-    if request.post?
-      state = User.authenticate(params['login'],params['password'])
-
-      if state
-        user = User.find_by_username(params['login'])
-        session[:user_id] = user.id
-        User.current = user
-        flash[:errors] = nil
-        redirect_to root_path and return
-      else
-        flash[:errors] = t("messages.invalid_credentials")
-      end
-
-    else
-      session[:user_id] = nil
-      User.current = nil
-    end
-    render :layout => "touch"
-  end
 
   def logout
-    session[:user_id] = nil
-    User.current = nil
-    redirect_to "/login"
+
   end
 
   def username_availability

@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def title(page_title, options={})
+    content_for(:title, page_title.to_s)
+    return content_tag(:h1, page_title, options)
+  end
+
   def drug_categories
     DrugCategory.where(:voided => false).collect{|x| x.category}
   end
@@ -18,14 +23,32 @@ module ApplicationHelper
   def has_prescribe
     YAML.load_file("#{Rails.root}/config/application.yml")['has_prescribing'] rescue false
   end
+
   def facility_name
     YAML.load_file("#{Rails.root}/config/application.yml")['facility_name']
   end
+
   def user_roles
     return ["Administrator", "Pharmacist"]
   end
+
   def report_options
     return [["daily", t('forms.options.daily')],["weekly",t('forms.options.weekly')],
             ["monthly", t('forms.options.monthly')], ["range", t('forms.options.range')]]
   end
+
+  def version
+    style = "style='background-color:red;'" unless session[:datetime].blank?
+    "eDIM: - <span #{style}>#{(session[:datetime].to_date rescue Date.today).strftime('%A, %d-%b-%Y')}</span>&nbsp;&nbsp;"
+  end
+
+  def welcome_message
+    'Muli bwanji, enter your user information or scan your id card.'
+  end
+
+  def current_location
+    @current_location ||= Location.find(session[:location]) if session[:location]
+  end
+
+
 end

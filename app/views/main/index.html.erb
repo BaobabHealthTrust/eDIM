@@ -1,153 +1,137 @@
-<html>
-  <header>
-  </header>
-  <body style="margin: 0px; padding: 0px;">
-    <div style="display: table; width: 99vw;margin-top: 1vh;margin-left: auto;margin-right: auto">
-      <div style="display: table-row;">
-        <div style="width: 80vw;float: left;" class="header-cell">
-          <table style="width: 100%;">
-            <tr>
-              <td style="width: 40%;" >
-                <div style="display: table-row">
-                  <div style="display: table-cell;vertical-align: top;">
-                    <strong><%= t('menu.terms.scan_barcode')%></strong>
-                  </div>
-                  <div style="display: table-cell;float: right;">
-                    <img style="display: block;height: 30px;" src="/assets/barcode.jpg">
-                  </div>
-                </div>
-              </td>
-              <td style="border: 0em !important;">
-                <input type="text" id="barcode" class="scanner" style="width: 95%;" autofocus>
-              </td>
-            </tr>
-          </table>
-          <table style="width: 100%;margin-top: 10px;">
-            <tr>
-              <td style="border: 0em !important;">
-                <b><%= t('menu.terms.facility') %></b>
-              </td>
-              <td style="border: 0em !important;">
-                <b>:</b>
-              </td>
-              <td style="border: 0em !important;">
-                <%= facility_name %>
-              </td>
-              <td style="border: 0em !important;">
-                <b><%= t('menu.terms.users_name')%></b>
-              </td>
-              <td style="border: 0em !important;">
-                <b>:</b>
-              </td>
-              <td style="border: 0em !important;">
-                <%= User.current.display_name%>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="header-cell" style="float: right; width: 15vw;text-align: center;vertical-align: middle;">
-            <h2>RxMAGIC</h2>
-          <%= l(Date.today, format: '%d %B %Y') %>
-        </div>
-      </div>
-
-      <div style="border: 3px solid #06425C;margin-top: 3vh;height: 55vh;">
-          <div style="width: 100%; background-color: #006495;height: 4vh;text-align: center;color: white;padding-top: 1vh;">
-              <span style="font-size: 1.2em;"><%= t('menu.terms.actions') %></span>
-          </div>
-          <div style="display: table; padding-top: 2%;padding-left: 10px;width:75%; margin-left: auto;margin-right: auto;">
+<div style="width: 99vw; margin-left: auto;margin-right: auto;">
+  <div style="display: table-row;">
+    <div style="width: 86vw;float: left;margin-top: 1vh;padding: 10px;" class="header-cell">
+      <table style="width: 100%;">
+        <tr>
+          <td>
             <div style="display: table-row">
-              <div onmousedown="window.location='/general_inventory/new'" style="display: table-cell;text-align: center;">
-                <img src="/assets/add_drugs.png">
+              <div style="display: table-cell;vertical-align: top;">
+                <strong><%= t('menu.terms.scan_barcode')%></strong>
               </div>
-              <div onmousedown="window.location='/general_inventory'" style="display: table-cell;text-align: center;">
-                <img src="/assets/available_drugs.png">
-              </div>
-              <div onmousedown="window.location='/mobile_visit'" style="display: table-cell;text-align: center;">
-                <img src="/assets/mobile_clinic.png">
-              </div>
-              <div onmousedown="window.location='/select_report'" style="display: table-cell;text-align: center;">
-                <img src="/assets/report.png">
-              </div>
-              <div onmousedown="window.location='/main/settings'"style="display: table-cell;text-align: center;">
-                <img src="/assets/settings.png">
+              <div style="display: table-cell;float: right;">
+                <img style="display: block;height: 30px;" src="/assets/barcode.jpg">
               </div>
             </div>
-            <div style="display: table-row">
-              <div onmousedown="window.location='/general_inventory/new'" style="display: table-cell;text-align: center;">
-                <%= t('menu.terms.add_item') %>
-              </div>
-              <div onmousedown="window.location='/general_inventory'" style="display: table-cell;text-align: center;">
-                <%= t('menu.terms.view_inventory') %>
-              </div>
-              <div onmousedown="window.location='/mobile_visit'" style="display: table-cell;text-align: center;">
-                <%= t('menu.terms.mobile_clinic') %>
-              </div>
-              <div onmousedown="window.location='/select_report'" style="display: table-cell;text-align: center;">
-                <%= t('menu.terms.report') %>
-              </div>
-              <div onmousedown="window.location='/main/settings'" style="display: table-cell;text-align: center;">
-                <%= t('menu.terms.settings') %>
-              </div>
-            </div>
-          </div>
+          </td>
+          <td style="border: 0em !important;">
+            <input type="text" id="barcode" class="scanner" style="width: 95%;" autofocus>
+          </td>
+        </tr>
+      </table>
+      <div style="display: table;width: 98%;margin-left: auto;margin-right: auto;">
+        <div style="display: table-row; ">
+          <div class="header-content-cell"><%= t('menu.terms.facility') %></div>
+          <div class="header-content-cell"><%= facility_name %></div>
+          <div class="header-content-cell"><%= t('menu.terms.users_name') %></div>
+          <div class="header-content-cell"><%= User.current.display_name %></div>
+        </div>
+        <div style="display: table-row; ">
+          <div class="header-content-cell">Location</div>
+          <div class="header-content-cell"><%= current_location.name.titleize %></div>
+          <div class="header-content-cell">Role</div>
+          <div class="header-content-cell"><%= User.current.role %></div>
+        </div>
       </div>
     </div>
-
-    <div class="footer" >
-      <div onmousedown="window.location = '/logout'" class="bttn bttn-danger bttn-lg gradient"  type="button"><%= t('forms.buttons.logout') %></div>
+    <div class="header-cell" style="float: right; font-size: 1.1em; width: 9vw;text-align: center;vertical-align: middle;margin-top: 1vh;margin-left: 1vw;padding: 10px;">
+      <h1>eDIM</h1>
+      <%= l(Date.today, format: '%d %b %Y') %>
     </div>
-  </body>
+  </div>
 
-  <script type="text/javascript">
+  <div style="border: 3px solid #06425C;margin-top: 3vh;height: 55vh;">
+    <div style="width: 100%; background-color: #006495;height: 4vh;text-align: center;color: white;padding-top: 1vh;">
+      <span style="font-size: 1.5em;font-family: 'Arial Black', Gadget, sans-serif;"><%= t('menu.terms.actions') %></span>
+    </div>
+    <div style="display: table; padding-top: 2%;padding-left: 10px;width:75%; margin-left: auto;margin-right: auto;">
+      <div style="display: table-row">
+        <div onmousedown="window.location='/general_inventory/new'" style="display: table-cell;text-align: center;">
+          <img src="/assets/add_drugs.png">
+        </div>
+        <div onmousedown="window.location='/general_inventory'" style="display: table-cell;text-align: center;">
+          <img src="/assets/available_drugs.png">
+        </div>
+        <div onmousedown="window.location='/mobile_visit'" style="display: table-cell;text-align: center;">
+          <img src="/assets/mobile_clinic.png">
+        </div>
+        <div onmousedown="window.location='/select_report'" style="display: table-cell;text-align: center;">
+          <img src="/assets/report.png">
+        </div>
+        <div onmousedown="window.location='/main/settings'"style="display: table-cell;text-align: center;">
+          <img src="/assets/settings.png">
+        </div>
+      </div>
+      <div style="display: table-row">
+        <div onmousedown="window.location='/general_inventory/new'" style="display: table-cell;text-align: center;font-size: 1.4em;">
+          <%= t('menu.terms.add_item') %>
+        </div>
+        <div onmousedown="window.location='/general_inventory'" style="display: table-cell;text-align: center;font-size: 1.4em;">
+          <%= t('menu.terms.view_inventory') %>
+        </div>
+        <div onmousedown="window.location='/mobile_visit'" style="display: table-cell;text-align: center;font-size: 1.4em;">
+          <%= t('menu.terms.mobile_clinic') %>
+        </div>
+        <div onmousedown="window.location='/select_report'" style="display: table-cell;text-align: center;font-size: 1.4em;">
+          <%= t('menu.terms.report') %>
+        </div>
+        <div onmousedown="window.location='/main/settings'" style="display: table-cell;text-align: center;font-size: 1.4em;">
+          <%= t('menu.terms.settings') %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  <button class="red" style="float: left;" onmousedown="window.location='/sessions/logout'">Logout</button>
+</div>
+
+<script type="text/javascript">
     var timerHand;
 
     function checkBarcode()
     {
-      console.log("Checking")
-      var barcodeTxt = document.getElementById("barcode");
-      if (barcodeTxt.value.trim().match(/[A-Z0-9]+\$/)) {
+        var barcodeTxt = document.getElementById("barcode");
+        if (barcodeTxt.value.trim().match(/[A-Z0-9]+\$/)) {
 
-        barcodeTxt.value = barcodeTxt.value.trim().replace(/\$/, "").replace(/\-/,"")
-        if (barcodeTxt.value.toUpperCase().length >= 7)
-        {
-          window.location = "/patient/"+barcodeTxt.value.trim();
+            barcodeTxt.value = barcodeTxt.value.trim().replace(/\$/, "").replace(/\-/,"")
+            if (barcodeTxt.value.toUpperCase().length >= 5)
+            {
+                window.location = "/patient_identifiers/"+barcodeTxt.value.trim();
+            }
+            else
+            {
+                barcodeTxt.value = "";
+                initializeListener();
+            }
+
         }
         else
         {
-          barcodeTxt.value = "";
-          initializeListener();
+            initializeListener();
         }
-
-      }
-      else
-      {
-        initializeListener();
-      }
     }
 
     function cancelDispense()
     {
-      initializeListener();
-      hideLayer('backGround','dispenseForm')
+        initializeListener();
+        hideLayer('backGround','dispenseForm')
     }
 
 
     function initializeListener()
     {
-      document.getElementById("barcode").focus();
-      timerHand = setTimeout(function () {
-        checkBarcode();
-      }, 3000);
+        document.getElementById("barcode").focus();
+        timerHand = setTimeout(function () {
+            checkBarcode();
+        }, 3000);
 
     }
 
 
     $('.editRx').on('click', function(e) {
-      clearTimeout(timerHand);
+        clearTimeout(timerHand);
     });
 
     setTimeout(initializeListener(), 3000);
-  </script>
-
-</html>
+</script>

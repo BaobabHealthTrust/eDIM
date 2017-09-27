@@ -25,3 +25,11 @@ test:
 production:
   <<: *default
   database: s2s_patient_reg
+
+openmrs:
+  adapter: mysql2
+  username: root
+  password: password
+  host: localhost
+  pool: 5000
+  database: openmrs

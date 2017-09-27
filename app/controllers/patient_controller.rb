@@ -1,10 +1,8 @@
 class PatientController < ApplicationController
   def show
-    if params[:id].match(/p/i)
-      @patient = Patient.find_by_patient_identifier(params[:id]) rescue nil
-    else
-      @patient = Patient.find(params[:id]) rescue nil
-    end
+
+    @patient = Patient.find(params[:id]) rescue nil
+
     if @patient.blank?
       flash[:errors] = "Patient with ID #{params[:id]} not found"
       redirect_to "/" and return

@@ -302,11 +302,11 @@
             <tr>
               <td rowspan="3">
                   <div class="<%=@patient.gender.downcase%>">
-                    <img src="/assets/<%=@patient.gender.downcase%>.png">
+                    <img src="/assets/<%=@patient.sex.downcase%>.png">
                   </div>
               </td>
               <td colspan="6">
-                <span style="font-weight: bold;font-size: 1.5em;"><%= @patient.fullname %></span>
+                <span style="font-weight: bold;font-size: 1.5em;"><%= @patient.full_name %></span>
               </td>
             </tr>
             <tr>
@@ -322,10 +322,10 @@
               <td>&nbsp;</td>
               <th style="text-align: left;"><%= t('menu.terms.national_id') %></th>
               <th>:</th>
-              <td><%= @patient.nat_id %></td>
+              <td><%= @patient.national_id %></td>
               <th style="text-align: left;"><%= t('menu.terms.marital_status') %></th>
               <th>:</th>
-              <td><%= t('forms.options.' +@patient.marital_status.downcase).titleize %></td>
+              <td><%#= t('forms.options.' +@patient.marital_status.downcase).titleize %></td>
             </tr>
           </table>
         </div>

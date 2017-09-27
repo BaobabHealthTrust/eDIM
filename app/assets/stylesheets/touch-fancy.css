@@ -18,16 +18,15 @@
 body{
     font-family: "Nimbus Sans L", "Arial Narrow", sans-serif;
     overflow: hidden;
+}
+
+div {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none;   /* Chrome/Safari/Opera */
     -khtml-user-select: none;    /* Konqueror */
     -moz-user-select: none;      /* Firefox */
     -ms-user-select: none;       /* Internet Explorer/Edge */
     user-select: none;
-}
-
-div {
-    -moz-user-select:none;
 }
 
 form{
@@ -45,7 +44,12 @@ form{
 
 .options, .optionsSearchPage, .touchscreenTextInput, .searchResults {
     font-size:1.5em;
-    -moz-user-select:none
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 .touchscreenTextInput{
@@ -75,10 +79,12 @@ form{
     list-style: none;
     padding-left: 5px;
     padding-right: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     font-family:"Nimbus Sans L","Arial Narrow",sans-serif;
-    font-size:1.2em;
+    font-size:1.4em;
 }
 .optionsList{
     display:none;
@@ -100,11 +106,10 @@ form{
 .buttonsDiv {
     background-color: #333333;
     display: block;
-    height: 10vh;
+    height: 80px;
     position: absolute;
-    bottom:0px;
+    bottom: 0px;
     width:  100%;
-    padding: 1%;
     /*  z-index:10;*/
 }
 
@@ -124,14 +129,24 @@ form{
 
 .keyboardButton, #launchButton{
     display: inline; /*-moz-inline-box;*/
-    -moz-user-select:none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 .toggleButtonTrue{
     display:block;
     font-size: 1.5em;
     margin: 20px;
-    -moz-user-select:none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
     width: 150px;
     text-align: center;
 }
@@ -140,7 +155,12 @@ form{
     display:block;
     font-size: 1.5em;
     margin: 20px;
-    -moz-user-select:none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
     width: 150px;
     text-align: center;
 }
@@ -161,19 +181,19 @@ form{
     position:absolute;
     display: block;
     z-index: 10;
-    bottom: 15vh;
-    left: 1%;
+    bottom: 85px;
+    margin-left:1vw;
     border: 1px solid #333;
     border-radius: 15px;
     padding: 5px;
     background-color: rgba(255,255,255,0.8);
-    width: 96.5%;
+    width: 97vw;
 }
 
 .buttonLine{
     display: block;
     /*  height: 3.2em;*/
-    height: 12vh;
+    height: 70px;
     /*	margin-top: 10px; */
     width: 100%;
 }
@@ -209,31 +229,37 @@ form{
 }
 
 .helpText {
-    height: 1.3em;
+    height: 2em;
     width: 500px;
     position: absolute;
     top: 5px;
+    left: 25px;
     font-size: 2em;
     overflow: hidden;
 }
 
 .helpTextClass {
-    font-size: 1.3em;
+    font-size: 2em;
     padding-top: 5px;
-    padding-left: 10px;
+    padding-left: 1vw;
     width: 620px;
-    -moz-user-select: none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 .inputFrameClass {
     border: 1px solid black;
     margin-left:auto;
-    margin-right: auto;
+    margin-right:auto;
     background: #F0F0F0;
-    width:96.5%;
+    width:97vw;
     border-radius: 10px;
     padding: 5px;
-    height: calc(100vh - 65vh);
+    height: calc(100% - 300px);
     min-height: 60px;
 }
 
@@ -294,11 +320,11 @@ form{
 
 .messageBar {
     /*  height: 1em;*/
-    left: 20vw;
-    width: 50vw;
+    left: calc(50% - 225px);
+    width: 450px;
     position: absolute;
     top: 100px;
-    font-size: 1.3em;
+    font-size: 2em;
     text-align: center;
     background-color: tomato;
     padding: 10px;
@@ -325,7 +351,7 @@ form{
     width: 450px;
     position: absolute;
     top: 150px;
-    left: calc(50vh - 225px);
+    left: calc(50% - 225px);
     font-size: 1.2em;
     float: right;
     text-align: left;
@@ -349,8 +375,7 @@ form{
 
 button.navButton {
     float:right;
-    margin-right:2vw;
-    margin-top: 0.5vh;
+    margin-top:20px;
 }
 
 /*
@@ -519,7 +544,12 @@ button:hover.dark span {
 .ShortSelectList #options,
 .ShortSelectList #viewport {
     height: auto;
-    -moz-user-select:none
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 .ShortSelectList li {
@@ -724,13 +754,18 @@ button:hover.dark span {
 
 
 .infoBarClass {
-    -moz-user-select:none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
     color:gray;
     font-size:1.3em;
     margin-left:auto;
     margin-right:auto;
     padding-top:5px;
-    width:96.5%;
+    width:97vw;
     border-bottom:2px dotted;
 }  
 
@@ -750,8 +785,8 @@ button:hover.dark span {
 .NoKeyboard .options { height: 552px !important }
 
 #footer button, div.buttonsDiv button {
-    margin-top: 0.5vh;
-    min-width: 3vw;
+    margin-top: 10px;
+    min-width: 140px;
 }
 
 textarea {
@@ -762,7 +797,7 @@ textarea {
 }
 
 #apostrophe {
-    margin-left: 2px;
+    margin-left: 25px;
 }
 
 #backspace {
@@ -770,11 +805,11 @@ textarea {
 }
 
 .qwertyKeyboard #backspace, #apostrophe {
-    margin-left: 2px;
+    margin-left: 20px;
 }
 
 .qwertyKeyboard #apostrophe {
-    margin-left: 2px;
+    margin-left: 5px;
 }
 
 .abcKeyboard #backspace {
@@ -782,8 +817,8 @@ textarea {
 }
 
 .abcKeyboard #qwerty, #backspace, #num, #apostrophe {
-    margin-left: 2px;
-    min-width: 8vw;
+    margin-left: 5px;
+    min-width: 80px;
 }
 
 #zero {
@@ -916,17 +951,30 @@ button:active {
     border: 5px outset #000;
     padding: 9px;
     cursor: pointer;
-    -moz-user-select:none;
+    background:url(../images/btn_blue.png) right repeat;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
     -moz-user-focus:disabled;
     border-radius: 12px;
 }
 
 .btn:hover {
-    -moz-user-select:none;
+    background:url(../images/btn_blue_hover.png) right repeat;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
     -moz-user-focus:disabled;
 }
 
 .btn:active {
+    background:url(../images/btn_yellow.png) right repeat;
     border: 3px inset #000;
 }
 
@@ -964,7 +1012,12 @@ ul li {
 .ShortSelectList #options,
 .ShortSelectList #viewport {
     height: auto;
-    -moz-user-select:none
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 .ShortSelectList li {
@@ -977,12 +1030,22 @@ ul li {
 .longSelectList #options,
 .longSelectList #viewport {
     height: calc(100vh - 180px);
-    -moz-user-select:none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
     overflow: auto;
 }
 
 .longSelectList {
-    -moz-user-select:none
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 .longSelectList li {
@@ -1002,7 +1065,12 @@ ul li {
 
 .longSelectList .inputFrameClass {
     height: calc(100vh - 180px);
-    -moz-user-select:none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
     overflow: auto;
 }
 
@@ -1028,13 +1096,13 @@ ul li {
 
 #popupBox {
     height: 130px;
-    width: 50vw;
+    width: 510px;
     position: absolute;
-    top: 20vh;
-    left: 20vw;
-    font-size: 1.5em;
+    top: 150px;
+    left: calc(50% - 255px);
+    font-size: 2.35em;
     float: right;
-    text-align: center;
+    text-align: left;
     z-index: 842;
     border: thin solid black;
     background: #40f999;
@@ -1078,14 +1146,10 @@ ul li {
 
 li.odd {
     background-color: #eee;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 li.even {
     background-color: #ddd;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 li:hover {
@@ -1094,25 +1158,28 @@ li:hover {
 
 li.highlighted {
     background-color: lightblue;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 li {
-    /*padding: 5px;*/
+    padding: 5px;
     cursor: pointer;
     font-size: 1.5em;
     margin: 2px;
-    -moz-user-select: none;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
 }
 
 
 button {
-    font-size: 1.3em !important;
-    min-width: 7vw;
+    font-size: 22px !important;
+    min-width: 6.5vw;
     cursor: pointer;
-    min-height: 3vh;
+    min-height: 55px;
     border-radius: 5px !important;
-    margin: 2px;
+    margin: 5px;
     border: 1px solid #7eb9d0;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1121,6 +1188,7 @@ button {
     text-decoration: none;
     display: inline-block;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+    font-weight: bold;
     color: #FFFFFF;
     background-color: #a7cfdf;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#a7cfdf), to(#23538a));
@@ -1144,11 +1212,11 @@ button:active {
 }
 
 .button {
-    font-size: 1.2em !important;
+    font-size: 22px !important;
     padding: 15px;
     min-width: 120px;
     cursor: pointer;
-    min-height: 3vh;
+    min-height: 55px;
     border-radius: 5px !important;
     margin: 3px;
 }
@@ -1204,7 +1272,7 @@ button:active {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    font-size: 28px;
+    font-size: 1.2em;
     font-family: arial, helvetica, sans-serif;
     padding: 10px 10px 10px 10px;
     text-decoration: none;
@@ -1321,4 +1389,25 @@ button:active {
 
 .multi .options {
     height: 100% !important;
+}
+::-webkit-scrollbar {
+    height: 3vh;
+    width: 7vw;
+    background: #C0C0C0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #404040;
+    -webkit-border-radius: 2ex;
+    height: 3vh;
+
+}
+
+::-webkit-scrollbar-button {
+    height: 3vh;
+
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
 }

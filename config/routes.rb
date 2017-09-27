@@ -31,9 +31,7 @@ Rails.application.routes.draw do
 
   ###################### User Controller #############################
   get "/username_availability" => "user#username_availability"
-  get "/login" => "user#login"
-  post "/login" => "user#login"
-  get '/logout' => "user#logout"
+
   get "/query_users" => "user#query"
   get "/void_user/:id" => "user#destroy"
   post "/edit_user" => "user#edit"
@@ -58,56 +56,6 @@ Rails.application.routes.draw do
   ###################### Mobile Visit Product Controller ######################
   get "/void_mobile_visit_product/:id" => "mobile_visit_product#destroy"
 
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
   resources :mobile_visit
   resources :mobile_visit_product
   resources :general_inventory
@@ -118,5 +66,14 @@ Rails.application.routes.draw do
   resources :user
   resources :dispensation
   resources :drug
-
+  resources :patient_identifiers
+  resources :locations
+  resources :sessions do
+    collection do
+      post 'login' , action: :create
+      get 'logout' , action: :destroy
+      get 'add_location'
+      post 'workstation_location'
+    end
+  end
 end

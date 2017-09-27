@@ -1852,8 +1852,6 @@ function showBestKeyboard(aPageNum) {
 
     switch (inputElement.getAttribute("field_type")) {
         case "password":
-            __$("keyboard").innerHTML = getPreferredKeyboard();
-            break;
         case "full_keyboard":
             showKeyboard(true, (typeof(tstUserKeyboardPref) != 'undefined' &&
             tstUserKeyboardPref.toLowerCase() == "qwerty" ? true : false));
