@@ -3,7 +3,7 @@
 </script>
 
 
-<%= form_for :report,  :url => "/main/report"  do |f| %>
+<%= form_for :report,  :url => @path  do |f| %>
 
     <select id="reportDuration" name="report_duration" helpText="<%= t('forms.labels.report_duration') %>">
       <option></option>
@@ -12,7 +12,7 @@
       <% end %>
     </select>
 
-    <%= text_field_tag 'start_date', l(Date.today, format: "%d-%m-%Y"),
+    <%= text_field_tag 'start_date', l(Date.today, format: "%Y-%m-%d"),
                        {:id => 'startDate',
                         :field_type => 'date',
                         :helpText => t('forms.labels.start_date'),
@@ -20,7 +20,7 @@
                         :minDate => (Date.today - 20.year).to_date,
                         :tt_pageStyleClass => "Date DatesOnly"} %>
 
-    <%= text_field_tag 'end_date', Date.today.strftime("%d-%m-%Y"),
+    <%= text_field_tag 'end_date', Date.today.strftime("%Y-%m-%d"),
                        {:id => 'endDate',
                         :field_type => 'date',
                         :helpText => t('forms.labels.end_date'),

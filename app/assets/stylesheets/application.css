@@ -13,6 +13,27 @@
  *= require_tree .
  *= require_self
  */
+::-webkit-scrollbar {
+    height: 3vh;
+    width: 7vw;
+    background: #C0C0C0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #404040;
+    -webkit-border-radius: 2ex;
+    height: 3vh;
+
+}
+
+::-webkit-scrollbar-button {
+    height: 3vh;
+
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
+}
 
 body{
     font-family: "Nimbus Sans L", "Arial Narrow", sans-serif;
@@ -354,7 +375,7 @@ input.radio:focus ~ label:before {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#a7cfdf, endColorstr=#23538a);
 }
 
-button {
+button.nav-bttn {
     font-size: 1.3em !important;
     min-width: 7vw;
     cursor: pointer;
@@ -380,7 +401,7 @@ button {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#a7cfdf, endColorstr=#23538a);
 }
 
-button:active {
+button.nav-bttn:active {
     background-color: #ffc579 !important;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ffc579), to(#fb9d23)) !important;
     background-image: -webkit-linear-gradient(top, #ffc579, #fb9d23) !important;
@@ -392,7 +413,7 @@ button:active {
 }
 
 
-.blue {
+.nav-bttn.blue {
     border: 1px solid #7eb9d0;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -415,7 +436,7 @@ button:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#a7cfdf, endColorstr=#23538a);
 }
 
-.blue:hover {
+.nav-bttn.blue:hover {
     border: 1px solid #5ca6c4;
     background-color: #82bbd1;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#82bbd1), to(#193b61));
@@ -427,7 +448,7 @@ button:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#82bbd1, endColorstr=#193b61);
 }
 
-.green {
+.nav-bttn.green {
     border: 1px solid #34740e;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -450,7 +471,7 @@ button:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#4ba614, endColorstr=#008c00);
 }
 
-.green:hover {
+.nav-bttn.green:hover {
     border: 1px solid #224b09;
     background-color: #36780f;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#36780f), to(#005900));
@@ -462,7 +483,7 @@ button:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#36780f, endColorstr=#005900);
 }
 
-.red {
+.nav-bttn.red {
     border: 1px solid #72021c;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -485,7 +506,7 @@ button:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#a90329, endColorstr=#6d0019);
 }
 
-.red:hover {
+.nav-bttn.red:hover {
     border: 1px solid #450111;
     background-color: #77021d;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#77021d), to(#3a000d));
@@ -497,7 +518,7 @@ button:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#77021d, endColorstr=#3a000d);
 }
 
-.gray {
+.nav-bttn.gray {
     border: 1px solid #ccc;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -520,7 +541,7 @@ button:active {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#ccc, endColorstr=#999);
 }
 
-.gray:hover {
+.nav-bttn.gray:hover {
     border: 1px solid #ccc;
     background-color: #ddd;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#333), to(#ccc));

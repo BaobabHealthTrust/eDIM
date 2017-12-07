@@ -11,12 +11,12 @@
       <div style="display: table-cell;width: 10vw;text-align: center;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=language_preference'">
         <img src="/assets/change_language.png">
       </div>
-      <% if ["administrator","pharmacist"].include? User.current.role.downcase %>
+      <% if %w[administrator pharmacist superuser].include? User.current.role.downcase %>
         <div style="display: table-cell;width: 10vw;text-align: center;" onmousedown="window.location='/drug'">
           <img src="/assets/drugs_list.png">
         </div>
       <% end %>
-      <% if User.current.role.downcase == "administrator"%>
+      <% if %w[administrator superuser].include? User.current.role.downcase %>
         <div style="display: table-cell;width: 10vw;text-align: center;" onmousedown="window.location='/user'">
           <img src="/assets/user_edit.png">
         </div>
@@ -30,12 +30,12 @@
            onmousedown="window.location='/user/<%= User.current.id%>/edit?section=language_preference'">
         <%= t('menu.terms.change_language')%>
       </div>
-      <% if ["administrator","pharmacist"].include? User.current.role.downcase %>
+      <% if %w[administrator pharmacist superuser].include? User.current.role.downcase %>
         <div style="display: table-cell;text-align: center;" onmousedown="window.location='/drug'">
           <%= t('menu.terms.manage_drugs')%>
         </div>
       <% end %>
-      <% if User.current.role.downcase == "administrator"%>
+      <% if %w[administrator superuser].include? User.current.role.downcase %>
         <div style="display: table-cell;text-align: center;" onmousedown="window.location='/user'">
           <%= t('forms.buttons.user_management')%>
         </div>
@@ -44,5 +44,5 @@
   </div>
 </div>
 <div class="footer" >
-  <div onmousedown="window.location = '/'" class="bttn bttn-success bttn-lg gradient" style="margin-right: 2vw;float: right;" type="button"><%= t('forms.buttons.finish')%></div>
+  <button onmousedown="window.location = '/'" class="nav-bttn green" style="margin-right: 1vw;float: right;"><%= t('forms.buttons.finish')%></button>
 </div>

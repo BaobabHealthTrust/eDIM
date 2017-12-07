@@ -38,7 +38,7 @@
           Expiry Date:
         </td>
         <td>
-          <%= text_field_tag 'expiry_date', Date.today.strftime("%d-%m-%Y"),
+          <%= text_field_tag 'expiry_date', Date.today.strftime("%Y-%m-%d"),
                              {:id => 'expiry_date',
                               :field_type => 'date',
                               :helpText => t('forms.labels.expiry_date'),

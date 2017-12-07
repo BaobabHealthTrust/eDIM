@@ -24,13 +24,13 @@ class DispensationController < ApplicationController
                                              :dispensation_date => Time.current, :dispensed_by => User.current.id})
 
         if @dispensation.errors.blank?
-          print_and_redirect("/print_dispensation_label/#{@new_prescription.id}", "/patient/#{@patient.id}") and return
+          print_and_redirect("/print_dispensation_label/#{@new_prescription.id}", "/patients/#{@patient.id}") and return
         end
       else
         flash[:errors] = "Insufficient stock on hand"
       end
     end
-    redirect_to "/patient/#{@patient.id}" and return
+    redirect_to "/patients/#{@patient.id}" and return
   end
 
   def print_dispensation_label

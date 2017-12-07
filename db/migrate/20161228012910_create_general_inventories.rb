@@ -7,6 +7,7 @@ class CreateGeneralInventories < ActiveRecord::Migration
       t.date :date_received
       t.integer :received_quantity, :default => 0
       t.integer :current_quantity, :default => 0
+      t.integer :location_id, null: false
       t.integer :created_by
       t.boolean :voided, :default => false
       t.string :void_reason

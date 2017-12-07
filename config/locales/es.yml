@@ -223,6 +223,7 @@ es:
         dose_form: "Presentación del medicamento"
         drug_list: "Lista de medicamentos"
         drug_name: "Nombre del medicamento"
+        current_address: "Current Address"
   messages:
        printing_wait: "Imprimiendo, favor esperar ...."
        loading: "Cargando. Por favor esperar"

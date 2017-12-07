@@ -1,7 +1,8 @@
 class GeneralInventoryController < ApplicationController
 
   def index
-    @inventory = GeneralInventory.where("current_quantity > ? and voided = ?", 0, false)
+    @inventory = GeneralInventory.select("drug_id, sum(current_quantity) as current_quantity").where(
+                                          "location_id = ? and voided = ?",session[:location], false).having("current_quantity > 0")
   end
 
   def new
@@ -19,6 +20,7 @@ class GeneralInventoryController < ApplicationController
         @new_stock_entry.expiration_date = params[:expiry_date].to_date rescue nil
         @new_stock_entry.received_quantity = params[:amount_received].to_i + (@new_stock_entry.received_quantity - @new_stock_entry.current_quantity)
         @new_stock_entry.current_quantity = params[:amount_received].to_i
+        @new_stock_entry.location_id = session[:location]
 
         GeneralInventory.transaction do
           @new_stock_entry.save
@@ -60,6 +62,7 @@ class GeneralInventoryController < ApplicationController
           @new_stock_entry.expiration_date = params[:expiry_date].to_date rescue nil
           @new_stock_entry.received_quantity = params[:amount_received]
           @new_stock_entry.date_received = Date.current
+          @new_stock_entry.location_id = session[:location]
           @new_stock_entry.save
 
           if @new_stock_entry.errors.blank?
@@ -135,5 +138,15 @@ class GeneralInventoryController < ApplicationController
       render :text => {"name" => entry.drug_name, "currentQty"=> entry.current_quantity}.to_json
     end
 
+  end
+
+  def show
+
+  end
+
+  def list
+    @drug = Drug.find_by_drug_id(params[:drug_id])
+    @inventory = GeneralInventory.where("current_quantity > ? and drug_id = ? and location_id = ? and voided = ?",
+                                        0, params[:drug_id] ,session[:location], false)
   end
 end

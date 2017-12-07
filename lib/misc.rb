@@ -132,6 +132,7 @@ module Misc
     frequencies = {"OD"=> I18n.t('forms.options.once_a_day'), "BD"=>I18n.t('forms.options.two_times_a_day'),
                    "TDS"=>I18n.t('forms.options.three_times_a_day'), "QID"=>I18n.t('forms.options.four_times_a_day'),
                    "QHR"=>I18n.t('forms.options.every_hour'), "Q4HRS"=>I18n.t('forms.options.every_four_hours'),
+                   "EOD"=>I18n.t('forms.options.every_other_day'),"QN" =>I18n.t('forms.options.every_night'),
                    "Q2HRS"=>I18n.t('forms.options.every_two_hours'), "QWK"=>I18n.t('forms.options.once_a_week')}
 
     prn = (prn == "PRN" ? I18n.t('forms.options.as_needed') : '')
@@ -160,7 +161,6 @@ module Misc
       end
       mappings[element[0]]["items"] << element[1]
     end
-
     return mappings
   end
 end

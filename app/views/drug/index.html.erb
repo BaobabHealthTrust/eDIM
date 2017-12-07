@@ -76,14 +76,12 @@
 </div>
 
 <div class="footer" >
-  <div onmousedown="window.location = '/main/settings'" class="bttn bttn-success bttn-lg gradient"
-       style="margin-right: 2vw;float: right;" type="button">
+  <button class="nav-bttn green" style="float: right;margin-right: 1vw;" onmousedown="window.location='/main/settings'">
     <%= t('forms.buttons.finish')%>
-  </div>
-  <div onmousedown="window.location = '/drug/new'" class="bttn bttn-primary bttn-lg gradient"
-       style="margin-right: 2vh;float: right;"
-       type="button"><%= t('forms.buttons.add_drug') %>
-  </div>
+  </button>
+  <button class="nav-bttn" style="float: right;margin-right: 1vw;" onmousedown="window.location='/drug/new'">
+    <%= t('forms.buttons.add_drug') %>
+  </button>
 </div>
 
 <div id="keypad">

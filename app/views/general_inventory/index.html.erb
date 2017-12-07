@@ -55,7 +55,7 @@
 
     </script>
     <div style="height: 8vh;border: 1px inset black; border-width: 0px 0px 3px 0px;">
-      <h1 style="margin-left: 2vw;"><%= t("menu.terms.inventory")%></h1>
+      <h1 style="margin-left: 0.5vw;"><%= t("menu.terms.inventory")%></h1>
     </div>
 
     <div style="height: 75vh; overflow: auto;width: 99vw; margin-left: auto;margin-right: auto;">
@@ -63,11 +63,9 @@
         <thead>
         <tr>
           <th><%= t('menu.terms.item') %></th>
-          <th style="width: 10%;"><%= t('menu.terms.inventory_number') %></th>
-          <th style="width: 7.5%;"><%= t('menu.terms.category') %></th>
-          <th style="width: 10%;"><%= t('menu.terms.current_quantity') %></th>
-          <th style="width: 7.5%;"><%= t('menu.terms.expiration_date') %></th>
-          <th style="width: 17.5%;"><%= t('menu.terms.actions') %></th>
+          <th style="width: 20%;"><%= t('menu.terms.category') %></th>
+          <th style="width: 15%;"><%= t('menu.terms.current_quantity') %></th>
+          <th style="width: 15%;"><%= t('menu.terms.actions') %></th>
         </tr>
         </thead>
 
@@ -75,34 +73,24 @@
         <% (@inventory || []).each do |item| %>
             <tr>
               <td><%= item.drug_name.titleize rescue "" %></td>
-              <td><%= Misc.dash_formatter(item.gn_identifier) %></td>
               <td><%= item.drug_category %></td>
               <td><%= number_with_delimiter(item.current_quantity) %></td>
-              <td style="text-align: center;" ><%= l(item.expiration_date, format: '%b-%Y') rescue ""%></td>
-              <td>
-                <img style="float: left;" src="/assets/edit.png" title="Edit Item"
-                     onmousedown="window.location='/general_inventory/<%= item.id %>/edit'">
-                <img style="" src="/assets/print.png"  title="Print Barcode"
-                     onmousedown="window.location='/print_bottle_barcode/<%= item.id %>'">
-                <img style="float: right;" src="/assets/delete.png" title="Void Item"
-                     onmousedown="confirmAction('/void_general_inventory/<%= item.id %>', 'Are you sure you want to void item <%= Misc.dash_formatter(item.gn_identifier) %>?')">
+              <td style="text-align: center;">
+                <%= link_to "View", "/general_inventory/list?drug_id=#{item.drug_id}" %>
               </td>
             </tr>
         <% end %>
-
         </tbody>
       </table>
     </div>
 
     <div class="footer" >
-      <div onmousedown="window.location = '/'" class="bttn bttn-success bttn-lg gradient" style="margin-right: 2vw;float: right;" type="button">
-        <%= t('forms.buttons.finish')%></div>
-      <div onmousedown="window.location = '/general_inventory/new'" class="bttn bttn-primary bttn-lg gradient"
-              style="margin-right: 2vw;float: right;" type="button"><%= t('menu.terms.add_item')%></div>
+      <button onmousedown="window.location = '/'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
+        <%= t('forms.buttons.finish')%></button>
+      <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
+              style="margin-right: 1vw;float: right;"><%= t('menu.terms.add_item')%></button>
     </div>
 
     <div id="keypad">
-          <span class="keypad">
-          </span>
-
+      <span class="keypad"></span>
     </div>

@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   ###################### Main Controller ##################################
   get "/main/settings"
   get "/select_report" => "main#select_report"
-  post "/main/report"
+  post "/main/dispensation_report"
+  post "/main/prescription_report"
   get "/time" => "main#time"
 
   ###################### Drug Controller ##################################
@@ -58,9 +59,13 @@ Rails.application.routes.draw do
 
   resources :mobile_visit
   resources :mobile_visit_product
-  resources :general_inventory
+  resources :general_inventory do
+    collection do
+      get 'list'
+    end
+  end
   resources :drug_threshold
-  resources :patient
+  resources :patients
   resources :prescription
   resources :main
   resources :user
@@ -68,6 +73,7 @@ Rails.application.routes.draw do
   resources :drug
   resources :patient_identifiers
   resources :locations
+  resources :issues
   resources :sessions do
     collection do
       post 'login' , action: :create

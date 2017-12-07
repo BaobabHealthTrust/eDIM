@@ -5176,7 +5176,7 @@ function createMultipleSelectControl() {
             innerCell1.style.display = "table-cell";
             innerCell1.style.width = "30px";
 
-            innerCell1.innerHTML = "<img src='/assets/unticked.jpg' height='30' />";
+            innerCell1.innerHTML = "<img src='/assets/unticked.jpg' height='45' />";
 
             innerRow.appendChild(innerCell1);
 
@@ -5190,7 +5190,7 @@ function createMultipleSelectControl() {
             innerRow.appendChild(innerCell2);
 
             if (options[i].selected) {
-                innerCell1.innerHTML = "<img src='/assets/ticked.jpg' height='30' />";
+                innerCell1.innerHTML = "<img src='/assets/ticked.jpg' height='45' />";
                 li.setAttribute("class", "highlighted");
             }
         }
@@ -5205,7 +5205,7 @@ function createMultipleSelectControl() {
 function createSingleSelectControl() {
     if (__$("keyboard")) {
         setTimeout("__$('keyboard').style.display = 'none'", 10);
-        __$("inputFrame" + tstCurrentPage).style.height = "calc(100% - 50px)"
+        __$("inputFrame" + tstCurrentPage).style.height = "75vh"
     }
 
     if (__$("viewport")) {
@@ -5343,7 +5343,7 @@ function createSingleSelectControl() {
         innerCell1.style.display = "table-cell";
         innerCell1.style.width = "30px";
 
-        innerCell1.innerHTML = "<img src='/assets/unchecked.png' height='30' />";
+        innerCell1.innerHTML = "<img src='/assets/unchecked.png' height='45' />";
 
         innerRow.appendChild(innerCell1);
 
@@ -5357,7 +5357,7 @@ function createSingleSelectControl() {
         innerRow.appendChild(innerCell2);
 
         if (options[i].selected) {
-            innerCell1.innerHTML = "<img src='/assets/checked.png' height='30' />";
+            innerCell1.innerHTML = "<img src='/assets/checked.png' height='45' />";
             li.setAttribute("class", "highlighted");
         }
     }

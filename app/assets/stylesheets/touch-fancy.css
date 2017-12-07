@@ -106,10 +106,11 @@ form{
 .buttonsDiv {
     background-color: #333333;
     display: block;
-    height: 80px;
+    height: 10vh;
     position: absolute;
     bottom: 0px;
     width:  100%;
+    vertical-align: middle;
     /*  z-index:10;*/
 }
 
@@ -181,7 +182,7 @@ form{
     position:absolute;
     display: block;
     z-index: 10;
-    bottom: 85px;
+    bottom: 10.5vh;
     margin-left:1vw;
     border: 1px solid #333;
     border-radius: 15px;
@@ -213,7 +214,7 @@ form{
     top: 0px;
     left: 0px;
     z-index: 1;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 10vh);
     width: 100%;
     overflow: hidden;
 }
@@ -1162,7 +1163,7 @@ li.highlighted {
 li {
     padding: 5px;
     cursor: pointer;
-    font-size: 1.5em;
+    font-size: 1.7em;
     margin: 2px;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none;   /* Chrome/Safari/Opera */

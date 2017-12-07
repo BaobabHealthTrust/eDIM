@@ -217,6 +217,10 @@ en:
         dose_form: "Dose Form"
         drug_list: "Drug List"
         drug_name: "Drug Name"
+        current_address: "Current Address"
+        dispensation_rpt: "Dispensation Report"
+        prescription_rpt: "Prescription Report"
+        issue_item: "Issue Item"
   messages:
        printing_wait: "Printing, please wait ...."
        loading: "Loading. Please wait"

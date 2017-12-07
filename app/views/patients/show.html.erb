@@ -297,39 +297,32 @@
 
     <div style="display: table; width: 99vw;margin-top: 1vh;margin-left: auto;margin-right: auto">
       <div style="display: table-row;">
-        <div style="width: 75vw;float: left;" class="header-cell">
+        <div style="width: 75vw;float: left;height: 10vh;" class="header-cell">
           <table style="width: 100%;">
             <tr>
-              <td rowspan="3">
-                  <div class="<%=@patient.gender.downcase%>">
+              <td rowspan="2">
+                  <div class="<%=@patient.sex.downcase%>">
                     <img src="/assets/<%=@patient.sex.downcase%>.png">
                   </div>
               </td>
-              <td colspan="6">
-                <span style="font-weight: bold;font-size: 1.5em;"><%= @patient.full_name %></span>
-              </td>
-            </tr>
-            <tr>
-              <td>&nbsp;</td>
-              <th style="text-align: left;"><%= t('menu.terms.patient_id') %></th>
+              <th style="text-align: left;"><%= t('menu.terms.name') %></th>
               <th>:</th>
-              <td><%= @patient.formatted_pnid %></td>
+              <td><%= @patient.full_name %></td>
               <th style="text-align: left;"><%= t('menu.terms.age') %></th>
               <th>:</th>
               <td><%= @patient.age %></td>
             </tr>
             <tr>
-              <td>&nbsp;</td>
               <th style="text-align: left;"><%= t('menu.terms.national_id') %></th>
               <th>:</th>
-              <td><%= @patient.national_id %></td>
-              <th style="text-align: left;"><%= t('menu.terms.marital_status') %></th>
+              <td><%= @patient.formatted_pnid %></td>
+              <th style="text-align: left;"><%= t('menu.terms.current_address') %></th>
               <th>:</th>
-              <td><%#= t('forms.options.' +@patient.marital_status.downcase).titleize %></td>
+              <td><%= @patient.current_address %></td>
             </tr>
           </table>
         </div>
-        <div class="header-cell" style="float: right; width: 20vw;margin-right: 4px;">
+        <div class="header-cell" style="float: right; width: 20vw;margin-right: 4px;height: 10vh;">
           <div style="display: table-row">
             <div style="display: table-cell;vertical-align: top;margin-top: 5px;text-align: center;">
               <strong><%= t('menu.terms.scan_bottle')%></strong>
@@ -345,16 +338,17 @@
       <div style="display: table-row;">
         <div style="border: 1px solid blue;margin-top: 10px;">
             <% if has_prescribe %>
-              <%= render '/patient/prescribe_view' %>
+              <%= render '/patients/prescribe_view' %>
             <% else %>
-              <%= render '/patient/dispense_view' %>
+              <%= render '/patients/dispense_view' %>
             <% end %>
         </div>
       </div>
     </div>
     <div class="footer" >
-      <div class="bttn bttn-success bttn-lg gradient" style="margin-right: 2vw;float: right;" type="button"
-           onmousedown="window.location='/'"><%= t('forms.buttons.finish')%></div>
+      <button class="nav-bttn green" style="float: right;margin-right: 1vw;" onmousedown="window.location='/'">
+        <%= t('forms.buttons.finish')%>
+      </button>
     </div>
   </body>
 
