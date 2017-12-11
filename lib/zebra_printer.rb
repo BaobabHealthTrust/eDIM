@@ -299,7 +299,11 @@ module ZebraPrinter #:nodoc:
 
   class StandardLabel < Label  
     def initialize()
-      dimensions = (GlobalProperty.find_by_property("label_width_height").property_value rescue nil || "#{(3*203)},#{(2*203)}").split(",").collect{|d|d.to_i}
+      dimensions = YAML.load_file("#{Rails.root}/config/application.yml")['label_size'] rescue nil
+      if dimensions.blank?
+        dimensions = (GlobalProperty.find_by_property("label_width_height").property_value rescue nil || "#{(3*203)},#{(2*203)}")
+      end
+      dimensions = dimensions.split(",").collect{|d|d.to_i}
       super(dimensions.first, dimensions.last, 'T')
     end  
   end

@@ -6,11 +6,10 @@
   }
   input,label{
     margin-top: 3px;
-    font-size: 1.3em;
+    font-size: 1.7em;
   }
-  img{
-    height: 30px;
-    width: 25px;
+  th,td{
+    font-size: 1.7em;
   }
 </style>
 <script type="text/javascript">
@@ -52,8 +51,8 @@
     <tr>
       <th><%= t('menu.terms.users_name')%></th>
       <th style="width: 15%;"><%= t('forms.labels.username')%></th>
-      <th style="width: 15%;"><%= t('menu.terms.role')%></th>
-      <th style="width: 20%;"><%= t('menu.terms.actions')%></th>
+      <th style="width: 25%;"><%= t('menu.terms.role')%></th>
+      <th style="width: 15%;"><%= t('menu.terms.actions')%></th>
     </tr>
     </thead>
 
@@ -77,10 +76,10 @@
 </div>
 
 <div class="footer" >
-  <div onmousedown="window.location = '/main/settings'" class="bttn bttn-success bttn-lg gradient"
-       style="margin-right: 2vw;float: right;" type="button"><%= t('forms.buttons.finish')%></div>
-  <div onmousedown="window.location = '/user/new'" class="bttn bttn-primary bttn-lg gradient"
-       style="margin-right: 2vw;float: right;" type="button"><%= t('forms.buttons.add_user')%></div>
+  <button onmousedown="window.location = '/main/settings'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
+    <%= t('forms.buttons.finish')%></button>
+  <button onmousedown="window.location = '/user/new'" class="nav-bttn " style="margin-right: 1evw;float: right;">
+    <%= t('forms.buttons.add_user')%></button>
 </div>
 <div id="keypad">
           <span class="keypad">

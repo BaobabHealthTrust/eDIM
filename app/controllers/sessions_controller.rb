@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
       redirect_to '/sessions/add_location' and return
     else
       flash[:errors] = t("messages.invalid_credentials")
+      redirect_to "/sessions/new"
     end
   end
 

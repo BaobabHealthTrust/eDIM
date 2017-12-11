@@ -17,7 +17,7 @@
                     <b><%= t('menu.terms.quantity')%>:</b> <%= dispensation[0].quantity %><br/>
                   </div>
                   <div style="display: table-cell;vertical-align: middle;padding: 5px;">
-                    <img style="float: right;" src="/assets/print.png" title="Void Item"
+                    <img style="float: right;" src="/assets/print.png" title="Print dispensation label"
                          onmousedown="window.location='/print_dispensation_label/<%= dispensation[0].rx_id %>'">
 
                     <img style="float: right;" src="/assets/delete.png" title="Void Item"
@@ -39,7 +39,7 @@
                         <b><%= t('menu.terms.quantity')%>:</b> <%= dispensation[1].quantity %><br/>
                       </div>
                       <div style="display: table-cell;vertical-align: middle;padding: 5px;">
-                        <img style="float: right;" src="/assets/print.png" title="Void Item"
+                        <img style="float: right;" src="/assets/print.png" title="Print dispensation label"
                              onmousedown="window.location='/print_dispensation_label/<%= dispensation[1].rx_id %>'">
                         <img style="float: right;" src="/assets/delete.png" title="Void Item"
                              onmousedown="confirmAction('/void_dispensation/<%= dispensation[1].id %>', 'Are you sure you want to void dispensation for <%= dispensation[1].drug_name %> on <%= l(dispensation[1].dispensation_date.to_date, format: "%b %d, %Y")%> ?')">

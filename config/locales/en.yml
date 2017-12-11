@@ -221,6 +221,7 @@ en:
         dispensation_rpt: "Dispensation Report"
         prescription_rpt: "Prescription Report"
         issue_item: "Issue Item"
+        view_issued_items: "View Issued Items"
   messages:
        printing_wait: "Printing, please wait ...."
        loading: "Loading. Please wait"

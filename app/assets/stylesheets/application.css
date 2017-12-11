@@ -229,10 +229,10 @@ div.radioDiv {
 }
 
 label.custom {
-    min-width: 15vw;
+    min-width: 20vw;
     border-radius: 3px;
     border: 1px solid #D1D3D4;
-    font-size: 1em !important;
+    font-size: 1.4em !important;
 }
 
 /* hide input */
@@ -386,7 +386,7 @@ button.nav-bttn {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     font-family: arial, helvetica, sans-serif;
-    padding: 10px 10px 10px 10px;
+    padding: 0px 0px 0px 0px;
     text-decoration: none;
     display: inline-block;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
@@ -420,7 +420,6 @@ button.nav-bttn:active {
     border-radius: 3px;
     font-size: 28px;
     font-family: arial, helvetica, sans-serif;
-    padding: 10px 10px 10px 10px;
     text-decoration: none;
     display: inline-block;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
@@ -455,7 +454,6 @@ button.nav-bttn:active {
     border-radius: 3px;
     font-size: 28px;
     font-family: arial, helvetica, sans-serif;
-    padding: 10px 10px 10px 10px;
     text-decoration: none;
     display: inline-block;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
@@ -490,7 +488,6 @@ button.nav-bttn:active {
     border-radius: 3px;
     font-size: 28px;
     font-family: arial, helvetica, sans-serif;
-    padding: 10px 10px 10px 10px;
     text-decoration: none;
     display: inline-block;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);

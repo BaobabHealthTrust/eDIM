@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   def index
-    @users = User.where("voided = ?", false)
+    @users = User.where("retired = ?", false)
   end
 
   def new
@@ -69,7 +69,7 @@ class UserController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
-    user.update_attributes(voided: true)
+    user.update_attributes(retired: true)
     redirect_to "/user" and return
   end
 
@@ -107,7 +107,7 @@ class UserController < ApplicationController
   end
 
   def users_names
-    coordinators = User.where("voided = ? AND role in (?)", false, ["administrator","Pharmacist"]) rescue []
+    coordinators = User.where("retired = ? AND role in (?)", false, ["administrator","Pharmacist"]) rescue []
     names = coordinators.map do |v|
       "<li value='#{v.user_id}'>#{v.fullname.html_safe}</li>"
     end

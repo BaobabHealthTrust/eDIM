@@ -5,7 +5,7 @@
           border: 1px outset silver;
           background-color: #39bf87;
           padding: 15px;
-          line-height: 1em;
+          line-height: 4vh;
           margin-top: 5px;
           margin-bottom: 5px;
           font-size: 1em !important;
@@ -180,7 +180,7 @@
               </div>
               <div class="mobi-div" id="directionsDiv" style="display: none;">
                 <h3><%= t('forms.labels.select_directions')%></h3>
-                <div style="height: 45vh; overflow-x: hidden; overflow-y: auto;">
+                <div style="height: 55vh; overflow-x: hidden; overflow-y: auto;">
                   <table width="100" style="border-collapse: collapse">
                     <tr>
                       <td>
@@ -297,8 +297,8 @@
 
     <div style="display: table; width: 99vw;margin-top: 1vh;margin-left: auto;margin-right: auto">
       <div style="display: table-row;">
-        <div style="width: 75vw;float: left;height: 10vh;" class="header-cell">
-          <table style="width: 100%;">
+        <div style="width: 75vw;float: left;height: 15vh;" class="header-cell">
+          <table style="width: 100%;font-size: 1.2em">
             <tr>
               <td rowspan="2">
                   <div class="<%=@patient.sex.downcase%>">
@@ -322,7 +322,7 @@
             </tr>
           </table>
         </div>
-        <div class="header-cell" style="float: right; width: 20vw;margin-right: 4px;height: 10vh;">
+        <div class="header-cell" style="float: right; width: 20vw;margin-right: 4px;height: 15vh;">
           <div style="display: table-row">
             <div style="display: table-cell;vertical-align: top;margin-top: 5px;text-align: center;">
               <strong><%= t('menu.terms.scan_bottle')%></strong>

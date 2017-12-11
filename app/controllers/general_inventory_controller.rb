@@ -2,7 +2,7 @@ class GeneralInventoryController < ApplicationController
 
   def index
     @inventory = GeneralInventory.select("drug_id, sum(current_quantity) as current_quantity").where(
-                                          "location_id = ? and voided = ?",session[:location], false).having("current_quantity > 0")
+                                          "location_id = ? and voided = ?",session[:location], false).group('drug_id').having("current_quantity > 0")
   end
 
   def new

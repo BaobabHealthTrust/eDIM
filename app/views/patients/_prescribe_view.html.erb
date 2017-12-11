@@ -5,7 +5,7 @@
         <span style="font-size: 1.5em;font-family: 'Arial Black', Gadget, sans-serif;">Prescriptions</span>
       </div>
       <div style="height: 60vh; width: 100%; overflow: auto;">
-          <% (@prescriptions || []).each do |prescription| %>
+        <% (@prescriptions || []).each do |prescription| %>
                   <div style="border: 1px solid silver; padding: 5px;margin: 5px;">
                     <div style="display: table;width: 100%;">
                       <div style="display: table-row;">
@@ -22,8 +22,7 @@
                       </div>
                     </div>
                   </div>
-          <% end %>
-
+        <% end %>
       </div>
     </div>
     <div style="display: table-cell">
@@ -42,6 +41,8 @@
                           <b>Quantity:</b> <%= dispensation.quantity %><br/>
                         </div>
                         <div style="display: table-cell;vertical-align: middle;padding: 5px;">
+                          <img style="float: right;" src="/assets/print.png" title="Print dispensation label"
+                               onmousedown="window.location='/print_dispensation_label/<%= dispensation.rx_id %>'">
                           <img style="float: right;" src="/assets/delete.png" title="Void Item"
                                onmousedown="confirmAction('/void_dispensation/<%= dispensation.id %>', 'Are you Sure?')">
                         </div>

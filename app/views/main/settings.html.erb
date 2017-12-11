@@ -5,38 +5,38 @@
 <div style="height: 60vh;">
   <div style="display: table; padding-top: 10px;padding-left: 10px;margin-left: auto;margin-right: auto;">
     <div style="display: table-row">
-      <div style="display: table-cell;width: 10vw;text-align: center;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=password'">
+      <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=password'">
         <img src="/assets/change_password.png">
       </div>
-      <div style="display: table-cell;width: 10vw;text-align: center;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=language_preference'">
+      <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=language_preference'">
         <img src="/assets/change_language.png">
       </div>
       <% if %w[administrator pharmacist superuser].include? User.current.role.downcase %>
-        <div style="display: table-cell;width: 10vw;text-align: center;" onmousedown="window.location='/drug'">
+        <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/drug'">
           <img src="/assets/drugs_list.png">
         </div>
       <% end %>
       <% if %w[administrator superuser].include? User.current.role.downcase %>
-        <div style="display: table-cell;width: 10vw;text-align: center;" onmousedown="window.location='/user'">
+        <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/user'">
           <img src="/assets/user_edit.png">
         </div>
       <% end %>
     </div>
     <div style="display: table-row">
-      <div style="display: table-cell;text-align: center;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=password'">
+      <div style="display: table-cell;text-align: center;font-size: 1.4em;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=password'">
         <%= t('forms.buttons.change_password')%>
       </div>
-      <div style="display: table-cell;text-align: center;"
+      <div style="display: table-cell;text-align: center;font-size: 1.4em;"
            onmousedown="window.location='/user/<%= User.current.id%>/edit?section=language_preference'">
         <%= t('menu.terms.change_language')%>
       </div>
       <% if %w[administrator pharmacist superuser].include? User.current.role.downcase %>
-        <div style="display: table-cell;text-align: center;" onmousedown="window.location='/drug'">
+        <div style="display: table-cell;text-align: center;font-size: 1.4em;" onmousedown="window.location='/drug'">
           <%= t('menu.terms.manage_drugs')%>
         </div>
       <% end %>
       <% if %w[administrator superuser].include? User.current.role.downcase %>
-        <div style="display: table-cell;text-align: center;" onmousedown="window.location='/user'">
+        <div style="display: table-cell;text-align: center;font-size: 1.4em;" onmousedown="window.location='/user'">
           <%= t('forms.buttons.user_management')%>
         </div>
       <% end %>

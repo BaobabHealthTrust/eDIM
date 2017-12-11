@@ -3,7 +3,7 @@ class Prescription < ActiveRecord::Base
   belongs_to :drug, :foreign_key => :drug_id
 
   def patient_name
-    self.patient.fullname
+    self.patient.full_name
   end
 
   def drug_name

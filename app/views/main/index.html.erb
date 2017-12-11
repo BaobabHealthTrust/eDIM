@@ -1,6 +1,6 @@
 <div style="width: 99vw; margin-left: auto;margin-right: auto;">
   <div style="display: table-row;">
-    <div style="width: 85vw;float: left;margin-top: 1vh;padding: 10px;" class="header-cell">
+    <div style="width: 83vw;float: left;margin-top: 1vh;padding: 10px;" class="header-cell">
       <table >
         <tr>
           <td>
@@ -57,7 +57,7 @@
 
 <script type="text/javascript">
     var timerHand;
-    var isDispensary = <%= !current_location.name.match(/store/i).blank? %>
+    var isDispensary = <%= current_location.name.match(/store/i).blank? %>
     function checkBarcode()
     {
         var barcodeTxt = document.getElementById("barcode");
