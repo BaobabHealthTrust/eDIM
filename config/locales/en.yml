@@ -50,6 +50,7 @@ en:
         enter_ingredient: "Enter drug ingredient"
         enter_dose_strength: "Enter Dose Strength (include units)"
         enter_dose_form: "Enter dose form"
+        issue_locations: "Select locations to include"
     place_holders:
       username: "Username"
       password: "Password"

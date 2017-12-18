@@ -285,6 +285,12 @@
                   </table>
                 </div>
               </div>
+              <div class="mobi-div" id="extDiv" style="display: none;">
+                <div style="margin-top: 5px;">
+                  <label for="extBtl"><span style="font-weight: bold;font-size: 1.2em;"><%= t('forms.labels.enter_number_of_days')%></span></label> <br/>
+                  <input type="text" id="extraBtl" style="font-size: 1.2em;" name="extBtl" required>
+                </div>
+              </div>
                   <input type="hidden" value="<%= @patient.id%>" name="patient_id" />
                   <input type="hidden" name="bottle_id" id="btl_field"/>
                   <input type="hidden" name="quantity" id="dispensed_quantity"/>
@@ -460,7 +466,14 @@
           {
             if (checkRadio(checkdirections)){
               if (parseFloat(document.getElementById('qty').value) > 0){
-                document.forms[0].submit()
+                  if ((parseFloat(document.getElementById('currQty').innerHTML) >= parseFloat($('#qty')[0].value)) || ($('#extraBtl')[0].value.length > 0))
+                  {
+                      document.forms[0].submit()
+                  }
+                  else
+                  {
+                      showDispenseDiv('extDiv');
+                  }
               }
               else {
                 showDispenseDiv('qtyDiv');

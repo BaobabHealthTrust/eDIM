@@ -127,7 +127,7 @@ class GeneralInventoryController < ApplicationController
     chars = ("a".."z").to_a  + ("0".."9").to_a
     rand_str = ""
     1.upto(7) { |i| rand_str << chars[rand(chars.size-1)] }
-    send_data(print_string,:type=>"application/label; charset=utf-8", :stream=> false, :filename=>"#{rand_str}.lbl", :disposition => "inline")
+    send_data(print_string,:type=>"application/label; charset=utf-8", :stream=> false, :filename=>"#{rand_str}.lbs", :disposition => "inline")
   end
 
   def ajax_bottle
@@ -141,7 +141,11 @@ class GeneralInventoryController < ApplicationController
   end
 
   def show
-
+    @item = GeneralInventory.find_by_gn_inventory_id_and_location_id(params[:id],session[:location])
+    if @item.blank?
+      flash[:errors] = "Item with ID #{params[:id]} not found at this location"
+      redirect_to "/" and return
+    end
   end
 
   def list

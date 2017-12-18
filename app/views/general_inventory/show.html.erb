@@ -1,0 +1,82 @@
+<div style="border: 1px inset black; border-width: 0px 0px 3px 0px;padding-left: 0.5vw;height: 10vh;">
+  <h2><%= "#{@item.drug_name.titleize}" %></h2>
+  <div style="display: table-row; width: 100vw;margin-left: 0.5vw;font-size: 1.5em;">
+    <div style="display: table-cell;width: 25vw;">
+      <%= "#{t('menu.terms.bottle_id')} : #{Misc.dash_formatter(@item.bottle_id)}" %>
+    </div>
+    <div style="display: table-cell;width: 50vw;">
+      <%= "#{t('forms.labels.drug_category')} : #{@item.drug_category}" %>
+    </div>
+  </div>
+</div>
+
+<div style="height: 78vh; width: 100%">
+  <div style="display: table-row">
+    <div style="display: table-cell;width: 30vw;height:74vh;">
+      <div style="width: 100%; background-color: #006495;height: 4vh;text-align: center;color: white;padding-top: 1vh;">
+        <span style="font-size: 1.5em;font-family: 'Arial Black', Gadget, sans-serif;">Summary</span>
+      </div>
+
+    </div>
+    <div style="display: table-cell;width: 70vw;height:74vh;">
+      <div style="width: 100%; background-color: #006495;height: 4vh;text-align: center;color: white;padding-top: 1vh;">
+        <span style="font-size: 1.5em;font-family: 'Arial Black', Gadget, sans-serif;">Pre-packing</span>
+      </div>
+      <div style="display: table-row; padding-top: 1vh">
+        <div class="on-screen">
+          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+            Pack of 6
+          </div>
+        </div>
+        <div class="on-screen">
+          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+            Pack of 10
+          </div>
+        </div>
+        <div class="on-screen">
+          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+            Pack of 12
+          </div>
+        </div>
+        <div class="on-screen">
+          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+            Pack of 15
+          </div>
+        </div>
+      </div>
+      <div style="display: table-row; padding-top: 1vh">
+        <div class="on-screen">
+          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+            Pack of 18
+          </div>
+        </div>
+        <div class="on-screen">
+          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+            Pack of 20
+          </div>
+        </div>
+        <div class="on-screen">
+          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+            Pack of 30
+          </div>
+        </div>
+        <div class="on-screen">
+          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+            Other
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer" >
+  <button onmousedown="window.location = '/'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
+    <%= t('forms.buttons.finish')%></button>
+  <button onmousedown="window.location = '/issues/new?bottle=<%= @item.bottle_id %>'" class="nav-bttn" style="margin-right: 1vw;float: right;">
+    Issue Item</button>
+  <!--
+  <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
+          style="margin-right: 1vw;float: right;"><%= t('menu.terms.add_item')%></button>
+ //-->
+</div>

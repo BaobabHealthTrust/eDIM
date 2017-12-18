@@ -36,4 +36,15 @@ class Issue < ActiveRecord::Base
     return dispensation
   end
 
+  def issued_from
+    return Location.find(self.location_id).name
+  end
+
+  def location_issued_to
+    return Location.find(self.issued_to).name
+  end
+
+  def drug_name
+    return GeneralInventory.find_by_gn_inventory_id(self.inventory_id).drug_name
+  end
 end

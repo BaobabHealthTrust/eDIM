@@ -64,10 +64,10 @@ div.footer{
 }
 
 .bttn {
-    padding: 14px 24px;
+    padding: 18px 24px;
     border: 0 none;
     font-weight: 700;
-    font-size: inherit !important;
+    font-size: 1.4em !important;
     font-family: "Nimbus Sans L", "Arial Narrow", sans-serif !important;
     line-height: inherit !important;
     text-transform: uppercase;
@@ -377,7 +377,7 @@ input.radio:focus ~ label:before {
 
 button.nav-bttn {
     font-size: 1.3em !important;
-    min-width: 7vw;
+    min-width: 12vw;
     cursor: pointer;
     min-height: 8vh;
     border-radius: 5px !important;
@@ -418,7 +418,7 @@ button.nav-bttn:active {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    font-size: 28px;
+    font-size: 1em;
     font-family: arial, helvetica, sans-serif;
     text-decoration: none;
     display: inline-block;
@@ -548,4 +548,14 @@ button.nav-bttn:active {
     background-image: -o-linear-gradient(top, #333, #ccc);
     background-image: linear-gradient(to bottom, #333, #ccc);
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#333, endColorstr=#ccc);
+}
+
+div.on-screen{
+    display: table-cell;
+    border: 5px solid #ffffff;
+}
+.custom-checkbox, .custom-radio{
+    vertical-align: middle;
+    height:5vh;
+    width:5vw;
 }

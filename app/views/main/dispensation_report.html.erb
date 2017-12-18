@@ -6,11 +6,12 @@
   }
     tr {
       line-height: 2em;
+      font-size: 1.3em;
     }
 </style>
 
 <div style="height: 8vh;border: 1px inset black; border-width: 0px 0px 3px 0px;">
-  <h2 style="margin-left: 1vw;"><%= @report_type%></h2>
+  <h1 style="margin-left: 1vw;"><%= @report_type%></h1>
 </div>
 
 <div style="height: 75vh; overflow: auto;">
@@ -24,8 +25,8 @@
     <% (@items || []).each do |drug,item| %>
         <tr class="<%= cycle('odd','even') %>">
           <td style="text-align: left;padding: 5px;font-size: 1.4em;"><%= item["name"] %></td>
-          <td style="text-align: left;padding: 5px;font-size: 1.4em;"><%= item["available"] %></td>
-          <td style="text-align: left;padding: 5px;font-size: 1.4em;"><%= item["dispensed"] %></td>
+          <td style="text-align: right;margin-right:1vw;padding: 5px;font-size: 1.4em;"><%= number_with_delimiter(item["available"]) %></td>
+          <td style="text-align: right;margin-right:1vw;padding: 5px;font-size: 1.4em;"><%= number_with_delimiter(item["dispensed"]) %></td>
         </tr>
     <% end %>
   </table>

@@ -54,65 +54,52 @@
 
 </script>
 <div style="height: 10vh;border: 1px inset black; border-width: 0px 0px 3px 0px;">
-  <h1 style="margin-left: 0.5vw;"><%= @drug.name.titleize %></h1>
-  <h2 style="margin-left: 0.5vw;"><%= "#{t('menu.terms.category')} : #{@drug.category.titleize}" %></h2>
+  <h1 style="margin-left: 0.5vw;"><%= @report_type.titleize %></h1>
 </div>
 
-<div style="height: 77vh; overflow: auto;width: 98vw; margin-left: auto;margin-right: auto;">
+<div style="height: 75vh; overflow: auto;width: 98vw; margin-left: auto;margin-right: auto;">
   <table id="generalInventory" class="table table-striped table-bordered" width="100%" cellspacing="0">
     <thead>
     <tr>
-      <th style="width: 5%;">Select</th>
-      <th><%= t('menu.terms.inventory_number') %></th>
-      <th style="width: 18%;"><%= t('menu.terms.current_quantity') %></th>
-      <th style="width: 18%;"><%= t('menu.terms.expiration_date') %></th>
+      <th><%= t('menu.terms.item') %></th>
+      <th style="width: 25%;">Amount issued</th>
+      <th style="width: 25%;">Issued To</th>
       <th style="width: 20%;"><%= t('menu.terms.actions') %></th>
     </tr>
     </thead>
 
     <tbody>
-    <% (@inventory || []).each do |item| %>
+    <% (@records || []).each do |issue| %>
         <tr>
-          <td><input type="checkbox" class="custom-checkbox pay" data-id=<%= item.id %>></td>
-          <td><%= Misc.dash_formatter(item.gn_identifier) %></td>
-          <td><%= number_with_delimiter(item.current_quantity) %></td>
-          <td style="text-align: center;" ><%= l(item.expiration_date, format: '%b-%Y') rescue ""%></td>
+          <td><%= issue.drug_name %></td>
+          <td style="text-align: right;padding-right: 5px;"><%= number_with_delimiter(issue.quantity) %></td>
+          <td><%= issue.issued_to %></td>
           <td style="text-align: center;">
             <div style="display: table-cell;min-width: 8vw;">
-              <img style="" src="/assets/view_icon.png" title="View Item"
-                   onmousedown="window.location='/general_inventory/<%= item.id %>'">
+              <img style="" src="/assets/edit.png" title="Edit Issue"
+                   onmousedown="window.location='/issues/<%= issue.id %>/edit'">
             </div>
             <div style="display: table-cell;min-width: 8vw;">
-              <img style="" src="/assets/edit.png" title="Edit Item"
-                   onmousedown="window.location='/general_inventory/<%= item.id %>/edit'">
-            </div>
-            <div style="display: table-cell;min-width: 8vw;">
-              <img style="" src="/assets/print.png"  title="Print Barcode"
-                   onmousedown="window.location='/print_bottle_barcode/<%= item.id %>'">
-            </div>
-            <div style="display: table-cell;min-width: 8vw;">
-              <img style="" src="/assets/delete.png" title="Void Item"
-                   onmousedown="confirmAction('/void_general_inventory/<%= item.id %>', 'Are you sure you want to void item <%= Misc.dash_formatter(item.gn_identifier) %>?')">
+              <img style="" src="/assets/delete.png" title="Void Issue"
+                   onmousedown="confirmAction('/issues/<%= issue.id %>/delete', 'Are you sure you want to void this transaction?')">
             </div>
           </td>
         </tr>
     <% end %>
-
     </tbody>
   </table>
 </div>
 
 <div class="footer" >
-  <button onmousedown="window.location = '/general_inventory'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
+  <button onmousedown="window.location = '/'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
     <%= t('forms.buttons.finish')%></button>
-
+  <!--
   <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
-          style="margin-left: 1vw;">Merge Items</button>
-
+          style="margin-right: 1vw;float: right;"><%= t('menu.terms.add_item')%></button>
+ //-->
 </div>
 
 <div id="keypad">
-          <span class="keypad">
-          </span>
-
+  <span class="keypad">
+  </span>
 </div>

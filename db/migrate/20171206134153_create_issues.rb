@@ -3,6 +3,7 @@ class CreateIssues < ActiveRecord::Migration
     create_table :issues, primary_key: :issue_id do |t|
       t.string :inventory_id
       t.integer :location_id
+      t.integer :issued_to
       t.integer :quantity
       t.datetime :issue_date
       t.integer :issued_by

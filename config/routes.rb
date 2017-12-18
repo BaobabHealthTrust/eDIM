@@ -72,8 +72,17 @@ Rails.application.routes.draw do
   resources :dispensation
   resources :drug
   resources :patient_identifiers
-  resources :locations
-  resources :issues
+  resources :locations do
+    collection do
+      get 'suggestions'
+    end
+  end
+  resources :issues do
+    collection do
+      get 'select'
+      post 'list'
+    end
+  end
   resources :sessions do
     collection do
       post 'login' , action: :create
