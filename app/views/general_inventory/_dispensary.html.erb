@@ -4,7 +4,16 @@
       <div style="width: 100%; background-color: #006495;height: 4vh;text-align: center;color: white;padding-top: 1vh;">
         <span style="font-size: 1.5em;font-family: 'Arial Black', Gadget, sans-serif;">Summary</span>
       </div>
-
+      <div style="width: 100%; background-color: #C0C0C0;text-align: center;">
+        <br/>
+        <h2>Amount Received</h2>
+        <span style="font-size: 2em; color: darkred;"><%= @item.received_quantity %></span>
+        <h2>Amount Remaining</h2>
+        <span style="font-size: 2em; color: darkred;"><%= @item.current_quantity %></span>
+        <h2>Amount Used</h2>
+        <span style="font-size: 2em; color: darkred;"><%= @item.received_quantity - @item.current_quantity %></span>
+        <br/><br/>
+      </div>
     </div>
     <div style="display: table-cell;width: 70vw;height:74vh;">
       <div style="width: 100%; background-color: #006495;height: 4vh;text-align: center;color: white;padding-top: 1vh;">

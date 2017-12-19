@@ -30,7 +30,7 @@ class IssuesController < ApplicationController
 
         if @new_stock_entry.errors.blank?
           flash[:success] = "#{params[:bottle_id]} was successfully issued."
-          print_and_redirect("/print_bottle_barcode/#{@new_stock_entry.id}", "/general_inventory/#{@item.id}")
+          print_and_redirect("/print_bottle_barcode/#{@new_stock_entry.id}", "/general_inventory/#{@item.gn_identifier}")
         else
           flash[:errors] = "Insufficient stock on hand"
           redirect_to "/general_inventory/#{@item.gn_identifier}" and return

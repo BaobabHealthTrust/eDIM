@@ -155,6 +155,29 @@ class GeneralInventoryController < ApplicationController
   end
 
   def pre_packing
+    GeneralInventory.transaction do
+      @item = GeneralInventory.where("gn_identifier = ? ", params[:bottle_id]).lock(true).first
+      @item.current_quantity = @item.current_quantity.to_i - params[:pre_pack_amount].to_i
+      @item.save
 
+      if @item.errors.blank?
+        @new_stock_entry = GeneralInventory.new
+        @new_stock_entry.drug_id = @item.drug_id
+        @new_stock_entry.current_quantity = params[:pre_pack_amount]
+        @new_stock_entry.expiration_date = @item.expiration_date
+        @new_stock_entry.received_quantity = params[:pre_pack_amount]
+        @new_stock_entry.date_received = Date.current
+        @new_stock_entry.location_id = @item.location_id
+        @new_stock_entry.save
+
+        if @new_stock_entry.errors.blank?
+          flash[:success] = "#{params[:bottle_id]} was successfully issued."
+          print_and_redirect("/print_bottle_barcode/#{@new_stock_entry.id}", "/general_inventory/#{@item.gn_identifier}")
+        else
+          flash[:errors] = "Insufficient stock on hand"
+          redirect_to "/general_inventory/#{@item.gn_identifier}" and return
+        end
+      end
+    end
   end
 end
