@@ -12,6 +12,8 @@
         <span style="font-size: 2em; color: darkred;"><%= @item.current_quantity %></span>
         <h2>Amount Used</h2>
         <span style="font-size: 2em; color: darkred;"><%= @item.received_quantity - @item.current_quantity %></span>
+        <h2>Days to Expiry</h2>
+        <span style="font-size: 2em; color: darkred;"><%= (@item.expiration_date - Date.current).to_i %> Days</span>
         <br/><br/>
       </div>
     </div>
