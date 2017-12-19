@@ -73,7 +73,7 @@
     <tbody>
     <% (@inventory || []).each do |item| %>
         <tr>
-          <td><input type="checkbox" class="custom-checkbox pay" data-id=<%= item.id %>></td>
+          <td><input type="checkbox" class="custom-checkbox item" data-id=<%= item.id %>></td>
           <td><%= Misc.dash_formatter(item.gn_identifier) %></td>
           <td><%= number_with_delimiter(item.current_quantity) %></td>
           <td style="text-align: center;" ><%= l(item.expiration_date, format: '%b-%Y') rescue ""%></td>
@@ -106,7 +106,7 @@
   <button onmousedown="window.location = '/general_inventory'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
     <%= t('forms.buttons.finish')%></button>
   <% if !current_location.name.match(/store/i) %>
-  <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
+  <button onmousedown="merge()" class="nav-bttn blue"
           style="margin-left: 1vw;">Merge Items</button>
   <% else %>
   <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
@@ -120,3 +120,33 @@
           </span>
 
 </div>
+<%= form_for :general_inventory, :url => "/general_inventory/merge"  do |f| %>
+    <input type="hidden" name="bottle_ids" id="bottle_ids" value=""/>
+<% end %>
+
+<script type="text/javascript">
+
+  function merge()
+  {
+    var choices = [];
+    var transactions = document.getElementsByClassName('custom-checkbox item');
+
+    for(var o = 0; o < transactions.length; o++){
+      if(transactions[o].checked == true){
+          choices.push(transactions[o].getAttribute('data-id'));
+      }
+    }
+    if(choices.length > 1)
+    {
+      document.getElementById("bottle_ids").value = choices.join(',');
+      confirmForAction('submitMerge()', 'Are you sure you want to merge these items?')
+    }
+
+    return choices;
+  }
+
+  function submitMerge()
+  {
+    document.forms[0].submit();
+  }
+</script>

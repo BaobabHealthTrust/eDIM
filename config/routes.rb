@@ -63,6 +63,7 @@ Rails.application.routes.draw do
     post 'pre_packing'
     collection do
       get 'list'
+      post 'merge'
     end
   end
   resources :drug_threshold

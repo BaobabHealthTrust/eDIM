@@ -7,7 +7,7 @@ class GeneralInventory < ActiveRecord::Base
   validates :received_quantity, :presence => true
   validates :current_quantity, :presence => true
   validates :received_quantity, :numericality => { :only_integer => true }
-  validates :received_quantity, :numericality => { :greater_than => 0 }
+  validates :received_quantity, :numericality => { :greater_than => -1 }
   validates :current_quantity, :numericality => { :only_integer => true }
   validates :current_quantity, :numericality => { :greater_than => -1 }
   validates_associated :drug

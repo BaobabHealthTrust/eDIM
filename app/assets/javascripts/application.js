@@ -81,6 +81,13 @@ function confirmAction(actionUrl, message)
     document.getElementById("message").innerHTML = message;
 }
 
+function confirmForAction(action, message)
+{
+    showLayer('shadow', 'question')
+    document.getElementById("bttnYes").setAttribute("onmousedown", action)
+    document.getElementById("message").innerHTML = message;
+}
+
 function showDispenseForm()
 {
   showLayer('shadow', 'dispenseForm')

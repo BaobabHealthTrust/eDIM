@@ -181,4 +181,37 @@ class GeneralInventoryController < ApplicationController
       end
     end
   end
+
+  def merge
+    bottles = GeneralInventory.where(gn_inventory_id: params[:bottle_ids].split(','))
+    quantity = 0
+    GeneralInventory.transaction do
+      (bottles || []).each do |bottle|
+        quantity += bottle.current_quantity.to_i
+        bottle.received_quantity = bottle.received_quantity.to_i - bottle.current_quantity.to_i
+        bottle.current_quantity = 0
+        bottle.save
+      end
+
+      item = bottles.first
+
+      @new_stock_entry = GeneralInventory.new
+      @new_stock_entry.drug_id = item.drug_id
+      @new_stock_entry.current_quantity = quantity
+      @new_stock_entry.expiration_date = item.expiration_date
+      @new_stock_entry.received_quantity = quantity
+      @new_stock_entry.date_received = Date.current
+      @new_stock_entry.location_id = item.location_id
+      @new_stock_entry.save
+
+      if @new_stock_entry.errors.blank?
+        flash[:success] = "Items were successfully merged."
+        print_and_redirect("/print_bottle_barcode/#{@new_stock_entry.id}", "/general_inventory/list?drug_id=#{item.drug_id}")
+      else
+        flash[:errors] = "Items could not be merged"
+        redirect_to "/general_inventory/#{@new_stock_entry.gn_identifier}" and return
+      end
+    end
+  end
+
 end
