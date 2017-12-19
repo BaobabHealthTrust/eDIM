@@ -80,7 +80,7 @@
           <td style="text-align: center;">
             <div style="display: table-cell;min-width: 8vw;">
               <img style="" src="/assets/view_icon.png" title="View Item"
-                   onmousedown="window.location='/general_inventory/<%= item.id %>'">
+                   onmousedown="window.location='/general_inventory/<%= item.gn_identifier %>'">
             </div>
             <div style="display: table-cell;min-width: 8vw;">
               <img style="" src="/assets/edit.png" title="Edit Item"
@@ -105,9 +105,13 @@
 <div class="footer" >
   <button onmousedown="window.location = '/general_inventory'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
     <%= t('forms.buttons.finish')%></button>
-
+  <% if !current_location.name.match(/store/i) %>
   <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
           style="margin-left: 1vw;">Merge Items</button>
+  <% else %>
+  <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
+          style="margin-right: 1vw;float: right;">Stock Card</button>
+  <% end %>
 
 </div>
 

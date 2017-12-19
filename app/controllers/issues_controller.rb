@@ -25,7 +25,7 @@ class IssuesController < ApplicationController
         @new_stock_entry.save
 
         new_issue = Issue.create( inventory_id: @item.id, location_id: session[:location],
-                                  issued_to: @new_stock_entry.location_id, issued_by: session[:user],
+                                  issued_to: @new_stock_entry.location_id, issued_by: session[:user_id],
                                   quantity: params[:amount_issued], issue_date: DateTime.current)
 
         if @new_stock_entry.errors.blank?
@@ -33,7 +33,7 @@ class IssuesController < ApplicationController
           print_and_redirect("/print_bottle_barcode/#{@new_stock_entry.id}", "/general_inventory/#{@item.id}")
         else
           flash[:errors] = "Insufficient stock on hand"
-          redirect_to "/general_inventory/#{@item.id}" and return
+          redirect_to "/general_inventory/#{@item.gn_identifier}" and return
         end
       end
     end

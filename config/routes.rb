@@ -60,6 +60,7 @@ Rails.application.routes.draw do
   resources :mobile_visit
   resources :mobile_visit_product
   resources :general_inventory do
+
     collection do
       get 'list'
     end

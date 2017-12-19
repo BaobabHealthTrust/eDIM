@@ -2,6 +2,7 @@ class Issue < ActiveRecord::Base
   belongs_to :general_inventory, :foreign_key => :inventory_id
   has_one :location, foreign_key: :location_id
   has_one :user, foreign_key: :issued_by
+  validates_presence_of :issue_date,:issued_by,:issued_to,:quantity,:location_id
 
   def drug_name
     #this method handles the need to access the drug name associated to the dispensation
@@ -46,5 +47,9 @@ class Issue < ActiveRecord::Base
 
   def drug_name
     return GeneralInventory.find_by_gn_inventory_id(self.inventory_id).drug_name
+  end
+
+  def issuer
+    return User.find(self.issued_by).display_name rescue ""
   end
 end

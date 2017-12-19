@@ -62,9 +62,10 @@
     <thead>
     <tr>
       <th><%= t('menu.terms.item') %></th>
-      <th style="width: 25%;">Amount issued</th>
-      <th style="width: 25%;">Issued To</th>
-      <th style="width: 20%;"><%= t('menu.terms.actions') %></th>
+      <th style="width: 10%;">Amount issued</th>
+      <th style="width: 20%;">Issued To</th>
+      <th style="width: 15%;">Issued By</th>
+      <th style="width: 15%;"><%= t('menu.terms.actions') %></th>
     </tr>
     </thead>
 
@@ -73,7 +74,8 @@
         <tr>
           <td><%= issue.drug_name %></td>
           <td style="text-align: right;padding-right: 5px;"><%= number_with_delimiter(issue.quantity) %></td>
-          <td><%= issue.issued_to %></td>
+          <td><%= issue.location_issued_to %></td>
+          <td><%= issue.issuer %></td>
           <td style="text-align: center;">
             <div style="display: table-cell;min-width: 8vw;">
               <img style="" src="/assets/edit.png" title="Edit Issue"
@@ -93,10 +95,6 @@
 <div class="footer" >
   <button onmousedown="window.location = '/'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
     <%= t('forms.buttons.finish')%></button>
-  <!--
-  <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
-          style="margin-right: 1vw;float: right;"><%= t('menu.terms.add_item')%></button>
- //-->
 </div>
 
 <div id="keypad">

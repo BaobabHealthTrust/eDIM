@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20171206134153) do
   create_table "issues", primary_key: "issue_id", force: :cascade do |t|
     t.string   "inventory_id", limit: 255
     t.integer  "location_id",  limit: 4
+    t.integer  "issued_to",    limit: 4
     t.integer  "quantity",     limit: 4
     t.datetime "issue_date"
     t.integer  "issued_by",    limit: 4

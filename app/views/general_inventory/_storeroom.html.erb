@@ -1,0 +1,8 @@
+
+
+<div class="footer" >
+  <button onmousedown="window.location = '/general_inventory/list?drug_id=<%= @item.drug_id %>'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
+    <%= t('forms.buttons.finish')%></button>
+  <button onmousedown="window.location = '/issues/new?bottle=<%= @item.bottle_id %>'" class="nav-bttn" style="margin-right: 1vw;float: right;">
+    Issue Item</button>
+</div>

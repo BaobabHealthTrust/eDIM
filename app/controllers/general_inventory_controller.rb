@@ -141,7 +141,7 @@ class GeneralInventoryController < ApplicationController
   end
 
   def show
-    @item = GeneralInventory.find_by_gn_inventory_id_and_location_id(params[:id],session[:location])
+    @item = GeneralInventory.find_by_gn_identifier_and_location_id(params[:id].to_s,session[:location])
     if @item.blank?
       flash[:errors] = "Item with ID #{params[:id]} not found at this location"
       redirect_to "/" and return
@@ -152,5 +152,9 @@ class GeneralInventoryController < ApplicationController
     @drug = Drug.find_by_drug_id(params[:drug_id])
     @inventory = GeneralInventory.where("current_quantity > ? and drug_id = ? and location_id = ? and voided = ?",
                                         0, params[:drug_id] ,session[:location], false)
+  end
+
+  def pre_packing
+
   end
 end
