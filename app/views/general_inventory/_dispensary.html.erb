@@ -21,39 +21,39 @@
       </div>
       <div style="display: table-row; padding-top: 1vh">
         <div class="on-screen">
-          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+          <div onmousedown="prepack(6)" class="bttn bttn-primary bttn-lg gradient" type="button">
             Pack of 6
           </div>
         </div>
         <div class="on-screen">
-          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+          <div onmousedown="prepack(10)" class="bttn bttn-primary bttn-lg gradient" type="button">
             Pack of 10
           </div>
         </div>
         <div class="on-screen">
-          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+          <div onmousedown="prepack(12)" class="bttn bttn-primary bttn-lg gradient" type="button">
             Pack of 12
           </div>
         </div>
         <div class="on-screen">
-          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+          <div onmousedown="prepack(15)" class="bttn bttn-primary bttn-lg gradient" type="button">
             Pack of 15
           </div>
         </div>
       </div>
       <div style="display: table-row; padding-top: 1vh">
         <div class="on-screen">
-          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+          <div onmousedown="prepack(18)" class="bttn bttn-primary bttn-lg gradient" type="button">
             Pack of 18
           </div>
         </div>
         <div class="on-screen">
-          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+          <div onmousedown="prepack(20)" class="bttn bttn-primary bttn-lg gradient" type="button">
             Pack of 20
           </div>
         </div>
         <div class="on-screen">
-          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+          <div onmousedown="prepack(30)" class="bttn bttn-primary bttn-lg gradient" type="button">
             Pack of 30
           </div>
         </div>
@@ -71,3 +71,15 @@
   <button onmousedown="window.location = '/general_inventory/list?drug_id=<%= @item.drug_id %>'" class="nav-bttn green" style="margin-right: 1vw;float: right;">
     <%= t('forms.buttons.finish')%></button>
 </div>
+
+<%= form_for :general_inventory, :url => "/general_inventory/#{@item.id}/pre_packing"  do |f| %>
+    <input type="hidden" name="bottle_id" id="bottle_id" value="<%= @item.gn_identifier%>"/>
+    <input type="hidden" name="pre_pack_amount" id="pre_pack_amount" value="0"/>
+<% end %>
+
+<script type="text/javascript">
+  function prepack(amount) {
+      $('#pre_pack_amount')[0].value = amount;
+      document.forms[0].submit();
+  }
+</script>

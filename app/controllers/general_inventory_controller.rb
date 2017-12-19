@@ -158,6 +158,7 @@ class GeneralInventoryController < ApplicationController
     GeneralInventory.transaction do
       @item = GeneralInventory.where("gn_identifier = ? ", params[:bottle_id]).lock(true).first
       @item.current_quantity = @item.current_quantity.to_i - params[:pre_pack_amount].to_i
+      @item.received_quantity = @item.received_quantity.to_i - params[:pre_pack_amount].to_i
       @item.save
 
       if @item.errors.blank?
