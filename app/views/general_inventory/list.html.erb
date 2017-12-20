@@ -75,7 +75,7 @@
         <tr>
           <td><input type="checkbox" class="custom-checkbox item" data-id=<%= item.id %>></td>
           <td><%= Misc.dash_formatter(item.gn_identifier) %></td>
-          <td><%= number_with_delimiter(item.current_quantity) %></td>
+          <td style="text-align: right; padding-right: 1vw;"><%= number_with_delimiter(item.current_quantity) %></td>
           <td style="text-align: center;" ><%= l(item.expiration_date, format: '%b-%Y') rescue ""%></td>
           <td style="text-align: center;">
             <div style="display: table-cell;min-width: 8vw;">
@@ -109,7 +109,7 @@
   <button onmousedown="merge()" class="nav-bttn blue"
           style="margin-left: 1vw;">Merge Items</button>
   <% else %>
-  <button onmousedown="window.location = '/general_inventory/new'" class="nav-bttn blue"
+  <button onmousedown="window.location = ''" class="nav-bttn blue"
           style="margin-right: 1vw;float: right;">Stock Card</button>
   <% end %>
 
