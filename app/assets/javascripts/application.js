@@ -192,3 +192,15 @@ function press(pressedChar){
     search.value+= pressedChar
     search_box.fnFilter(search.value)
 }
+function showModal(modalDiv) {
+    // Get the modal
+    var modal = document.getElementById(modalDiv);
+    modal.style.display = "block";
+
+
+}
+
+function hideModal(modalDiv){
+    var modal = document.getElementById(modalDiv);
+    modal.style.display = "none";
+}

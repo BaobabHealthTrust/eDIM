@@ -1,3 +1,45 @@
+<div id="packSize" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" style="width: 40vw !important;">
+    <div style="display: table;">
+      <div style="display: table-row;">
+        <div style="display: table-cell;background-color:#eeeeee;width:40vw;padding: 10px;">
+          <input type="number" id="packQty" placeholder="Enter Pack Size" style="font-size: 2em; width: 90%;line-height: 3em;">
+          <span class="close" onmousedown="hideModal('packSize');">&times;</span>
+        </div>
+      </div>
+      <div style="display: table-row;">
+        <div style="display: table-cell; border: 1px inset black;">
+          <div style="margin-top: 5px;">
+            <table width="100%" cellspacing="20" >
+              <tr>
+                <td class="customButton" onmousedown="append(1);"><span>1</span></td>
+                <td class="customButton" onmousedown="append(2);"><span>2</span></td>
+                <td class="customButton" onmousedown="append(3);"><span>3</span></td>
+              </tr>
+              <tr>
+                <td class="customButton" onmousedown="append(4);"><span>4</span></td>
+                <td class="customButton" onmousedown="append(5);"><span>5</span></td>
+                <td class="customButton" onmousedown="append(6);"><span>6</span></td>
+              </tr>
+              <tr>
+                <td class="customButton" onmousedown="append(7);"><span>7</span></td>
+                <td class="customButton" onmousedown="append(8);"><span>8</span></td>
+                <td class="customButton" onmousedown="append(9);"><span>9</span></td>
+              </tr>
+              <tr>
+                <td class="customButton" onmousedown="append(0);"><span>0</span></td>
+                <td class="customButton" onmousedown="append('del');"><span>del</span></td>
+                <td class="customButton" style="background-color: #00bf6f !important;" onmousedown="customPrePack();"><span>Pack</span></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div style="height: 78vh; width: 100%">
   <div style="display: table-row">
     <div style="display: table-cell;width: 30vw;height:74vh;">
@@ -60,7 +102,7 @@
           </div>
         </div>
         <div class="on-screen">
-          <div onmousedown="window.location = ''" class="bttn bttn-primary bttn-lg gradient" type="button">
+          <div onmousedown="showModal('packSize')" class="bttn bttn-primary bttn-lg gradient" type="button">
             Other
           </div>
         </div>
@@ -80,8 +122,45 @@
 <% end %>
 
 <script type="text/javascript">
+  var modal = document.getElementById('packSize');
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
   function prepack(amount) {
       $('#pre_pack_amount')[0].value = amount;
       document.forms[0].submit();
+  }
+
+  function append(key){
+      var input = document.getElementById("packQty");
+
+      if (key != "del")
+      {
+          input.value = input.value.toString().trim() + key;
+
+      }
+      else
+      {
+          var temp = parseInt(input.value).toString().trim();
+          temp = parseFloat(temp.substring(0,temp.length-1));
+          input.value = (temp == "NaN" ? "" : temp);
+      }
+  }
+
+  function customPrePack()
+  {
+      var input = document.getElementById("packQty");
+
+      if(parseInt(input.value) > 0)
+      {
+         prepack(input.value);
+      }
+      else
+      {
+          input.focus();
+      }
   }
 </script>
