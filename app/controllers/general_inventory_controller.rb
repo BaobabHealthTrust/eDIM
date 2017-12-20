@@ -177,7 +177,7 @@ class GeneralInventoryController < ApplicationController
 
         if @new_stock_entry.errors.blank?
           flash[:success] = "#{params[:bottle_id]} was successfully issued."
-          print_and_redirect("/print_bottle_barcode/#{@new_stock_entry.id}", "/general_inventory/#{@item.gn_identifier}")
+          print_and_redirect("/general_inventory/print_pre_packed/#{@new_stock_entry.id}", "/general_inventory/#{@item.gn_identifier}")
         else
           flash[:errors] = "Insufficient stock on hand"
           redirect_to "/general_inventory/#{@item.gn_identifier}" and return
@@ -218,4 +218,23 @@ class GeneralInventoryController < ApplicationController
     end
   end
 
+  def print_pre_packed
+    #This function prints bottle barcode labels for both inventory types
+    id = params[:ids].split(',') rescue params[:id]
+    entry = GeneralInventory.find(id)
+#    raise params[:id].inspect
+    if entry.is_a?(Array)
+      print_string = ""
+      (entry || []).each do |bottle|
+        print_string += "#{Misc.create_bottle_label(bottle.drug_name,bottle.gn_identifier,bottle.expiration_date,bottle.received_quantity)}\n"
+      end
+    else
+      print_string = Misc.create_bottle_label(entry.drug_name,entry.gn_identifier,entry.expiration_date, entry.received_quantity)
+    end
+
+    chars = ("a".."z").to_a  + ("0".."9").to_a
+    rand_str = ""
+    1.upto(7) { |i| rand_str << chars[rand(chars.size-1)] }
+    send_data(print_string,:type=>"application/label; charset=utf-8", :stream=> false, :filename=>"#{rand_str}.lbl", :disposition => "inline")
+  end
 end

@@ -22,7 +22,7 @@ module Misc
     return checkdigit
   end
 
-  def self.create_bottle_label(item,bottle_id,expiration_date)
+  def self.create_bottle_label(item,bottle_id,expiration_date,qty = nil)
 
     label = ZebraPrinter::StandardLabel.new
     label.font_size = 4
@@ -31,8 +31,9 @@ module Misc
     label.left_margin = 50
     label.draw_barcode(610,30,1,1,2,4,80,false,"#{bottle_id}")
     label.draw_multi_text("#{item}", {:column_width => 520})
-    label.draw_multi_text("Inventory #:#{Misc.dash_formatter(bottle_id)}",{:column_width => 520})
-    label.draw_multi_text("Exp:#{expiration_date.strftime('%m/%Y')}", {:column_width => 520})
+    label.draw_multi_text("Inventory #: #{Misc.dash_formatter(bottle_id)}",{:column_width => 520})
+    label.draw_multi_text("Quantity : #{qty}",{:column_width => 520}) if !qty.blank?
+    label.draw_multi_text("Exp : #{expiration_date.strftime('%m/%Y')}", {:column_width => 520})
     label.print(1)
 
   end

@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   resources :general_inventory do
     post 'pre_packing'
     collection do
+      get 'print_pre_packed(/:id)', action: :print_pre_packed
       get 'list'
       post 'merge'
     end
