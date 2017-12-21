@@ -1,7 +1,7 @@
 class CreateIssues < ActiveRecord::Migration
   def change
     create_table :issues, primary_key: :issue_id do |t|
-      t.string :inventory_id
+      t.integer :inventory_id
       t.integer :location_id
       t.integer :issued_to
       t.integer :quantity

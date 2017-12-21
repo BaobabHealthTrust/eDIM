@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "/select_report" => "main#select_report"
   post "/main/dispensation_report"
   post "/main/prescription_report"
+  post "/main/stores_report"
   get "/time" => "main#time"
 
   ###################### Drug Controller ##################################

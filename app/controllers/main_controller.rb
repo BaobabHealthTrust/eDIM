@@ -11,6 +11,10 @@ class MainController < ApplicationController
         @path = '/main/prescription_report'
       when 'dispensation'
         @path = '/main/dispensation_report'
+      when 'storeroom'
+        @path = '/main/stores_report'
+        locations = GeneralInventory.where(gn_inventory_id: Issue.all.pluck(:inventory_id)).pluck(:location_id)
+        @locations = ['All Locations'] + Location.where(location_id: locations.uniq).pluck(:name)
     end
     render :layout => "touch"
   end
@@ -89,7 +93,65 @@ class MainController < ApplicationController
 
   end
 
+  def stores_report
+    @report_type,start_date,end_date = resolve_durations(params[:report_duration],params[:start_date],params[:end_date])
+
+    if params[:locations].include? 'All Storerooms'
+      locations = GeneralInventory.where(gn_inventory_id: Issue.all.pluck(:inventory_id)).pluck(:location_id)
+    else
+      locations = Location.where(name: params[:locations]).pluck(:location_id).join(',')
+    end
+
+    receipts = GeneralInventory.select('drug_id,
+                                        SUM(received_quantity) as received_quantity'
+                                      ).where('voided = ? and location_id in (?) and date_received BETWEEN ? AND ?',
+                                              false,locations,start_date.to_date.strftime('%Y-%m-%d'),
+                                              end_date.to_date.strftime('%Y-%m-%d')).group('drug_id')
+
+    issues = Issue.select(:inventory_id,:quantity).where("issue_date BETWEEN '#{start_date}' and '#{end_date}'
+                              and location_id in (#{locations}) and voided = false")
+
+    later_issues = Issue.select(:inventory_id,:quantity).where("issue_date > '#{end_date}' and
+                                                                location_id in (#{locations}) and voided = false")
+
+    current_stock = GeneralInventory.select('SUM(current_quantity) as current_quantity,
+                                            drug_id').where('voided = ? and date_received <= ? and location_id in (?)',
+                                                            false, end_date.to_date.strftime('%Y-%m-%d'),locations
+                                                            ).group("drug_id")
+
+    @records = view_context.stores_report(issues,receipts,current_stock,later_issues)
+  end
+
   def time
     render :text => Time.current().strftime('%Y-%m-%d %H:%M').to_s
+  end
+
+  private
+
+  def resolve_durations(report_type,start_date,end_date)
+    case report_type
+      when t('forms.options.daily')
+        report_title = "#{t('menu.terms.daily_report')} #{l(start_date.to_date, format:'%d %B, %Y')}"
+        starting_date = start_date.to_date.strftime('%Y-%m-%d 00:00:00')
+        ending_date = start_date.to_date.strftime('%Y-%m-%d 23:59:59')
+
+      when t('forms.options.weekly')
+        report_title = "#{t('menu.terms.weekly_report')} #{l(start_date.to_date.beginning_of_week, format:'%d %B, %Y')}
+        #{t('menu.terms.to')} #{l(start_date.to_date.end_of_week, format: '%d %B, %Y')}"
+
+        starting_date = start_date.to_date.beginning_of_week.strftime('%Y-%m-%d 00:00:00')
+        ending_date = start_date.to_date.end_of_week.strftime('%Y-%m-%d 23:59:59')
+
+      when t('forms.options.monthly')
+        report_title = "#{t('menu.terms.monthly_report')} #{l(start_date.to_date, format: '%B %Y')}"
+        starting_date = start_date.to_date.beginning_of_month.strftime('%Y-%m-%d 00:00:00')
+        ending_date = start_date.to_date.end_of_month.strftime('%Y-%m-%d 23:59:59')
+      when t('forms.options.range')
+        report_title = "#{t('menu.terms.custom_report')} #{l(start_date.to_date, format: '%d %B, %Y')}
+        #{t('menu.terms.to')} #{l(end_date.to_date, format: '%d %B, %Y')}"
+        starting_date = start_date.to_date.strftime('%Y-%m-%d 00:00:00')
+        ending_date = end_date.to_date.strftime('%Y-%m-%d 23:59:59')
+    end
+    return report_title, starting_date, ending_date
   end
 end

@@ -4,6 +4,12 @@
 
 
 <%= form_for :report,  :url => @path  do |f| %>
+    <%= select_tag 'locations[]',
+                   options_for_select(@locations, nil),
+                   :id => "locations",
+                   :helpText => t('forms.labels.issue_locations'),
+                   :condition => (@path == '/main/stores_report'),
+                   :multiple =>  true %>
 
     <select id="reportDuration" name="report_duration" helpText="<%= t('forms.labels.report_duration') %>">
       <option></option>
