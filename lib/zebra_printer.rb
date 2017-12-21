@@ -24,7 +24,7 @@ module ZebraPrinter #:nodoc:
     def initialize(width = (3*203), height = (2*203), orientation = 'T', number_of_labels = nil)
       @width = width || (3*203)
       @height = height || (2*203)
-      @gap = '026'
+      @gap = '018'
       @orientation = orientation || 'T'
       @number_of_labels = number_of_labels || nil
       @left_margin = 30
