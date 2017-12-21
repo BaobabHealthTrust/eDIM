@@ -119,7 +119,12 @@ class MainController < ApplicationController
                                                             false, end_date.to_date.strftime('%Y-%m-%d'),locations
                                                             ).group("drug_id")
 
-    @records = view_context.stores_report(issues,receipts,current_stock,later_issues)
+    #getting drug ids for the issued items
+    issue_ids = (issues.collect { |x| x.inventory_id } + later_issues.collect { |x| x.inventory_id }).uniq
+    drug_map = Hash[*GeneralInventory.where('gn_inventory_id in (?) AND date_received <= ?',issue_ids,
+                                            end_date.to_date.strftime('%Y-%m-%d')).pluck(:gn_inventory_id, :drug_id).flatten(1)]
+
+    @records = view_context.stores_report(issues,receipts,current_stock,later_issues,drug_map)
   end
 
   def time

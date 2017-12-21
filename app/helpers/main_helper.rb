@@ -19,10 +19,7 @@ module MainHelper
     return records
   end
 
-  def stores_report(issues,receipts,current_stock,later_issues)
-    #getting drug ids for the issued items
-    issue_ids = (issues.collect { |x| x.inventory_id } + later_issues.collect { |x| x.inventory_id }).uniq
-    drug_map = Hash[*GeneralInventory.where(gn_inventory_id: issue_ids).pluck(:gn_inventory_id, :drug_id).flatten(1)]
+  def stores_report(issues,receipts,current_stock,later_issues,drug_map)
 
     #pre-processing report information
     records = {}
@@ -36,12 +33,14 @@ module MainHelper
     end
 
     (issues || []).each do |item|
+      next if records[drug_map[item.inventory_id.to_i]].blank?
       records[drug_map[item.inventory_id.to_i]] = {'name' => Drug.find(drug_map[item.inventory_id.to_i]).name,'current' => 0,
                                               'received' => 0,'issued' => 0} if records[drug_map[item.inventory_id.to_i]].blank?
       records[drug_map[item.inventory_id.to_i]]['issued'] += item.quantity
     end
 
     (later_issues || []).each do |item|
+      next if records[drug_map[item.inventory_id.to_i]].blank?
       records[drug_map[item.inventory_id.to_i]] = {'name' => Drug.find(drug_map[item.inventory_id.to_i]).name,'current' => 0,
                                               'received' => 0,'issued' => 0} if records[drug_map[item.inventory_id.to_i]].blank?
       records[drug_map[item.inventory_id.to_i]]['current'] += item.quantity
