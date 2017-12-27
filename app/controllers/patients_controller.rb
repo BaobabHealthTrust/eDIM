@@ -61,4 +61,26 @@ class PatientsController < ApplicationController
 
     render "index"
   end
+
+  def family_names
+    searchname("family_name", params[:search_string])
+  end
+
+  def given_names
+    searchname("given_name", params[:search_string])
+  end
+
+  def family_name2
+    searchname("family_name2", params[:search_string])
+  end
+
+  def middle_name
+    searchname("middle_name", params[:search_string])
+  end
+
+  def searchname(field_name, search_string)
+    @names = PersonNameCode.find_most_common(field_name, search_string).collect{|person_name| person_name.send(field_name)} # rescue []
+    render :text => "<li>" + @names.map{|n| n } .join("</li><li>") + "</li>"
+  end
+
 end

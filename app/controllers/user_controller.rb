@@ -5,21 +5,38 @@ class UserController < ApplicationController
 
   def new
     @user = User.new
-    @targeturl = "/users"
+    @targeturl = "/user"
     render :layout => "touch"
   end
 
   def create
 
-    @user = User.new({:username => params[:user][:username], :password => params[:user][:password],:role =>params[:user][:user_role],
-                      :first_name => params[:user][:first_name], :middle_name => params[:user][:middle_name],
-                      :fathers_name => params[:user][:fathers_name], :mothers_name => params[:user][:mothers_name]})
+    existing_user = User.where(username: params[:user][:username]) rescue nil
 
-    if @user.save
-      redirect_to "/user" and return
-    else
-      render 'new', :layout => "touch"
+    if !existing_user.blank?
+      flash[:notice] = 'Username already in use'
+      redirect_to "/user/new" and return
     end
+    if (params[:password] != params[:confirm_password])
+      flash[:notice] = 'Password Mismatch'
+      redirect_to :action => 'new' and return
+    end
+
+    person = Person.create()
+    person.names.create(given_name: params[:user][:given_name], family_name: params[:user][:family_name])
+
+    @user = User.create(username: params[:user][:username], password: params[:password],
+                        creator: params[:creator], person_id: person.id)
+
+    @user.user_roles.create(role: Role.find_by_role( params[:user_role][:role_id]).role)
+
+    if @user.errors.blank?
+      flash[:notice] = 'User was successfully created.'
+    else
+      flash[:notice] = 'Oops! User was not created!.'
+      redirect_to "/user/new" and return
+    end
+    redirect_to "/user"
 
   end
 
@@ -112,6 +129,15 @@ class UserController < ApplicationController
       "<li value='#{v.user_id}'>#{v.fullname.html_safe}</li>"
     end
     render :text => names.join('') and return
+  end
+
+  def roles
+    role_conditions = ["role LIKE (?)", "%#{params[:value]}%"]
+    roles = Role.where( role_conditions)
+    roles = roles.map do |r|
+      "<li value='#{r.role}'>#{r.role.gsub('_',' ').capitalize}</li>"
+    end
+    render :text => roles.join('') and return
   end
 
   private

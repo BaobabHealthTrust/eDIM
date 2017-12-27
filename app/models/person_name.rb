@@ -3,6 +3,11 @@ class PersonName < ActiveRecord::Base
   self.table_name = "person_name"
   self.primary_key = "person_name_id"
 
+  include Openmrs
+  before_create :before_create
+  before_update :before_save
+  before_save :before_save
+
   default_scope {-> {order('person_name.preferred DESC')}}
   belongs_to :person, -> { where "voided = 0" }, :foreign_key => :person_id
   has_one :person_name_code, :foreign_key => :person_name_id # no default scope

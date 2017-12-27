@@ -7,9 +7,12 @@ class User < ActiveRecord::Base
   self.table_name = "users"
   self.primary_key = "user_id"
 
+  include Openmrs
+
   validates :username, presence: true, uniqueness: true, length: { minimum: 5 }
   validates :password, presence: true, length: { minimum: 6 }
 
+  before_create :before_create
   before_save :encrypt_password
 
   cattr_accessor :current

@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
 
     if location.blank?
       flash[:error] = "Invalid workstation location"
-      redirect_to "/location"
+      redirect_to '/sessions/add_location' and return
     else
       session[:location] = location.id
       redirect_to root_path

@@ -1,5 +1,17 @@
+<script type="text/javascript" defer>
+
+    tt_cancel_destination = '/users';
+    tt_cancel_show = '/';
+
+</script>
+
 <%= form_for :user,  url: user_index_path do |f| %>
 
+        <p><label for="user_given_name">First name</label><br/>
+          <%= text_field 'user', 'given_name', :ajaxURL=> '/patients/given_names?search_string=', :value => nil ,:allowFreeText => true%></p>
+
+        <p><label for="user_family_name">Last name</label><br/>
+          <%= text_field 'user', 'family_name', :ajaxURL => '/patients/family_names?search_string=', :value => nil, :allowFreeText => true%></p>
 
         <%= f.label :username %>
         <br>
@@ -7,42 +19,20 @@
                          :textCase => "lower", :uniq_check => "/username_availability?search_str=" %>
         <%= f.label :password %>
         <br>
-        <%= f.password_field :password, :class => "input_cell", :placeholder => "Password",
-                             :required => true, :textCase => "lower" %>
-        <%= f.label :confirm_password %>
+        <%= password_field_tag(:password, nil, :helpText => 'Enter password',
+                               :textCase => "lower", :field_type => "password",
+                               :validationRule =>"\\w{6}\\w*", :validationMessage =>"Password less than SIX characters.",:minlength => 6 ,
+                               :tt_onLoad => "inform(); barcodeId = 'touchscreenInput1';") %><br>
+
+        <%= password_field_tag(:confirm_password, nil, :helpText => 'Confirm password',
+                               :validationRule =>"\\w{6}\\w*", :validationMessage =>"Password less than SIX characters.",:minlength => 6 ,
+                               :textCase => "lower", :field_type => "password") %><br>
+
         <br>
-        <%= f.password_field :confirm_password, :class => "input_cell",
-                             :placeholder => "Confirm the password entered", :required => true,
-                             :textCase => "lower" %>
-        <%= f.label :user_role %>
-        <br>
-        <%= select_tag "user[user_role]", options_for_select(user_roles, (@user.role rescue nil)),
-                       :class => 'input_cell', :placeholder => "Select user role", :required => true  %>
+        <p><label for="user_role_role_id">User Role</label></br>
+        <%= text_field 'user_role', 'role_id', :xhelpText => 'User role', :ajaxURL => '/user/roles?field=role&value='%></p>
 
-        <%= f.label :first_name %>
-        <br>
-        <%= (f.text_field :first_name, :class => "input_cell") rescue "" %>
-
-
-
-        <%= f.label :middle_name %>
-        <br>
-        <%= (f.text_field :middle_name, :class => "input_cell",  :optional => :true) rescue "" %>
-
-
-        <%= f.label :fathers_name %>
-        <br>
-        <%= (f.text_field :fathers_name, :class => "input_cell") rescue "" %>
-
-
-        <%= f.label :mothers_name %>
-        <br>
-        <%= (f.text_field :mothers_name, :class => "input_cell") rescue "" %>
-
-    </fieldset>
+        <%= hidden_field_tag 'creator', User.current.id %>
 
 <% end %>
 
-<script type="text/javascript">
-  init();
-</script>

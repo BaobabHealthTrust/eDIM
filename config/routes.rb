@@ -69,10 +69,18 @@ Rails.application.routes.draw do
     end
   end
   resources :drug_threshold
-  resources :patients
+  resources :patients do
+    collection do
+      get 'given_names'
+      get 'family_names'
+    end
+  end
   resources :prescription
-  resources :main
-  resources :user
+  resources :user do
+    collection do
+      get 'roles'
+    end
+  end
   resources :dispensation
   resources :drug
   resources :patient_identifiers
