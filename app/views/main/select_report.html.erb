@@ -5,7 +5,7 @@
 
 <%= form_for :report,  :url => @path  do |f| %>
     <%= select_tag 'locations[]',
-                   options_for_select(@locations, nil),
+                   options_for_select((@locations || []), nil),
                    :id => "locations",
                    :helpText => t('forms.labels.issue_locations'),
                    :condition => (@path == '/main/stores_report'),
