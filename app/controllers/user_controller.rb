@@ -47,43 +47,40 @@ class UserController < ApplicationController
   end
 
   def edit
-
-    if request.post?
-
-      user = User.find(params[:user_id])
-      case params[:section]
-        when "language_preference"
-          user.language = params[:user][:language_preference]
-          if user.save
-            flash[:success] = "User language preference successfully updated"
-          else
-            flash[:errors] = "Failed to update user language preference"
-          end
-        when "password"
-          user.update_attributes(:password => params[:user][:plain_password], :salt => nil)
-
-          if user.save
-            flash[:success] = "User password successfully updated"
-          else
-            flash[:errors] = t("messages.invalid_credentials")
-          end
-        when "role"
-          user.update_attributes(:role => params[:user][:user_role])
-          if user.save
-            flash[:success] = "User role was successfully updated"
-          else
-            flash[:errors] = "Failed to update user role"
-          end
-      end
-      redirect_to "/main/settings" and return
-    else
-      @user = User.find(params[:id])
-      @edit_section = params[:section]
-      render :layout =>  "touch"
-    end
-
+    @user = User.find(params[:id])
+    @section = (params[:section] || 'General')
+    render :layout =>  "touch"
   end
 
+  def update
+
+    user = User.find(params[:id])
+    case params[:section]
+      when "General"
+        User.transaction do
+          person = user.person
+          person.names.create(given_name: params[:user][:given_name], family_name: params[:user][:family_name])
+          user.user_roles.destroy_all
+          user.user_roles.create(role: Role.find_by_role( params[:user_role][:role_id]).role)
+        end
+
+        if user.errors.blank?
+          flash[:success] = "User language preference successfully updated"
+        else
+          raise user.errors.inspect
+          flash[:errors] = "Failed to update user details"
+        end
+      when "password"
+        user.update_attributes(password: params[:password], salt: nil)
+        if user.errors.blank?
+          flash[:success] = "User password successfully updated"
+        else
+          flash[:errors] = t("messages.invalid_credentials")
+        end
+    end
+    redirect_to "/main/settings" and return
+
+  end
   def destroy
     user = User.find(params[:id])
     user.update_attributes(retired: true)
@@ -143,6 +140,6 @@ class UserController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username,:first_name, :middle_name, :role, :fathers_name, :mothers_name,:password)
+    params.require(:user).permit(:username,:password,:creator,:voided)
   end
 end

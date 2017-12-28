@@ -28,15 +28,15 @@ class User < ActiveRecord::Base
   end
 
   def first_name
-    self.person.names.first.given_name rescue ''
+    self.person.names.last.given_name rescue ''
   end
 
   def last_name
-    self.person.names.first.family_name rescue ''
+    self.person.names.last.family_name rescue ''
   end
 
   def display_name
-    name = self.person.names.first
+    name = self.person.names.last
 
     return "#{name.given_name} #{name.family_name}".titleize
   end
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def role
-    self.user_roles.first.role rescue ''
+    self.user_roles.last.role rescue ''
   end
 
   def self.current

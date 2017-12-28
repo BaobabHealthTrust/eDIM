@@ -1,33 +1,38 @@
+<script type="text/javascript" defer>
 
-<script>
-  var tt_cancel_destination = "/main/settings"
-  //barcodeFocusOnce = true;
-  //barcodeScanAction = gotoNextPage;
+    tt_cancel_destination = '/main/settings';
 </script>
 
-<%= form_for :user, :url => edit_user_path  do |f| %>
+<%= form_for :user,method: 'PATCH',  url: user_path do |f| %>
 
-    <% if @edit_section == "language_preference"%>
+    <% if @section == 'General' %>
+    <p><label for="user_given_name">First name</label><br/>
+      <%= text_field 'user', 'given_name', :ajaxURL=> '/patients/given_names?search_string=',
+                     :value => @user.first_name ,:allowFreeText => true%></p>
 
-        <%= select_tag "user[language_preference]", options_for_select(['English', 'Spanish'], (@user.language rescue nil)),
-                       :class => 'input_cell', :helpText => "Language Preference", :required => true  %>
+    <p><label for="user_family_name">Last name</label><br/>
+      <%= text_field 'user', 'family_name', :ajaxURL => '/patients/family_names?search_string=',
+                     :value => (@user.last_name || nil), :allowFreeText => true%></p>
+    <br>
+    <p><label for="user_role_role_id">User Role</label></br>
+      <%= text_field 'user_role', 'role_id', :xhelpText => 'User role',
+                     :ajaxURL => '/user/roles?field=role&value='%></p>
+    <br>
+   <% else %>
+      <%= f.label :password %>
+      <br>
+      <%= password_field_tag(:password, nil, :helpText => 'Enter password',
+                             :textCase => "lower", :field_type => "password",
+                             :validationRule =>"\\w{6}\\w*",
+                             :validationMessage =>"Password less than SIX characters.",:minlength => 6 ,
+                             :tt_onLoad => "inform(); barcodeId = 'touchscreenInput1';") %><br>
 
+      <%= password_field_tag(:confirm_password, nil, :helpText => 'Confirm password',
+                             :validationRule =>"\\w{6}\\w*",
+                             :validationMessage =>"Password less than SIX characters.",:minlength => 6 ,
+                             :textCase => "lower", :field_type => "password") %><br>
 
-    <% elsif @edit_section == "password"%>
-        <p><label for="user_plain_password">Password</label><br/>
-          <%= password_field 'user', 'plain_password', :xhelpText => 'Password' ,:textCase =>"lower",
-                             :validationRule => "\\w{4}\\w*", :validationMessage => "Password less than six characters",
-                             :value =>"", :minlength => 6 %></p>
-
-        <p><label for="user_confirm_password">Re-enter Password</label><br/>
-          <%= password_field 'user_confirm', 'password', :xhelpText => 'Password',:textCase =>"lower",
-                             :validationRule =>"\\w{6}\\w*", :validationMessage =>"Password less than FOUR characters." %></p>
-    <% elsif @edit_section == "role" %>
-        <%= select_tag "user[user_role]", options_for_select(user_roles, (@user.role rescue nil)),
-                       :class => 'input_cell', :placeholder => "Select user role", :required => true  %>
     <% end %>
-
-    <%= hidden_field_tag 'section', @edit_section%>
-    <%= hidden_field_tag 'user_id', @user.id%>
-    <%= submit_tag value="Submit"%>
+    <%= hidden_field_tag 'section', @section %>
 <% end %>
+

@@ -64,7 +64,7 @@
           <td><%= user.role.titleize %></td>
           <td>
 
-            <img style="float: left;" src="/assets/edit.png" onmousedown="window.location='/user/<%= user.id %>/edit?section=role'" title="Edit User">
+            <img style="float: left;" src="/assets/edit.png" onmousedown="window.location='/user/<%= user.id %>/edit'" title="Edit User">
             <img style="float: right;" src="/assets/delete.png" title="Void Item"
                  onmousedown="confirmAction('/void_user/<%= user.id %>', 'Are you Sure?')">
           </td>
