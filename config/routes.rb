@@ -86,6 +86,8 @@ Rails.application.routes.draw do
   resources :patient_identifiers
   resources :locations do
     collection do
+      get 'search'
+      get 'print_label'
       get 'suggestions'
     end
   end

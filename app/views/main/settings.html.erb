@@ -11,16 +11,22 @@
       <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=language_preference'">
         <img src="/assets/change_language.png">
       </div>
-      <% if %w[administrator pharmacist superuser].include? User.current.role.downcase %>
+      <% if ['administrator', 'superuser', 'system developer', 'pharmacist'].include? User.current.role.downcase %>
         <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/drug'">
           <img src="/assets/drugs_list.png">
         </div>
       <% end %>
-      <% if %w[administrator superuser].include? User.current.role.downcase %>
+      <% if ['administrator', 'superuser', 'system developer'].include? User.current.role.downcase %>
         <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/user'">
           <img src="/assets/user_edit.png">
         </div>
       <% end %>
+      <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/location/index'">
+        <img src="/assets/change_language.png">
+      </div>
+      <div style="display: table-cell;width: 15vw;text-align: center;" onmousedown="window.location='/locations/new'">
+        <img src="/assets/change_language.png">
+      </div>
     </div>
     <div style="display: table-row">
       <div style="display: table-cell;text-align: center;font-size: 1.4em;" onmousedown="window.location='/user/<%= User.current.id%>/edit?section=password'">
@@ -30,16 +36,22 @@
            onmousedown="window.location='/user/<%= User.current.id%>/edit?section=language_preference'">
         <%= t('menu.terms.change_language')%>
       </div>
-      <% if %w[administrator pharmacist superuser].include? User.current.role.downcase %>
+      <% if ['administrator', 'superuser', 'system developer', 'pharmacist'].include? User.current.role.downcase %>
         <div style="display: table-cell;text-align: center;font-size: 1.4em;" onmousedown="window.location='/drug'">
           <%= t('menu.terms.manage_drugs')%>
         </div>
       <% end %>
-      <% if %w[administrator superuser].include? User.current.role.downcase %>
+      <% if ['administrator', 'superuser', 'system developer'].include? User.current.role.downcase %>
         <div style="display: table-cell;text-align: center;font-size: 1.4em;" onmousedown="window.location='/user'">
           <%= t('forms.buttons.user_management')%>
         </div>
       <% end %>
+      <div style="display: table-cell;text-align: center;font-size: 1.4em;" onmousedown="window.location='/locations/new'">
+        Add Location
+      </div>
+      <div style="display: table-cell;text-align: center;font-size: 1.4em;" onmousedown="window.location='/locations/index'">
+        Print Workstation Location
+      </div>
     </div>
   </div>
 </div>

@@ -145,6 +145,18 @@ module Misc
     YAML.load_file("#{Rails.root}/config/application.yml")['facility_name']
   end
 
+  def self.print_location(location_id)
+    location = Location.find(location_id)
+    label = ZebraPrinter::Label.new(801,329,'026',false)
+    label.font_size = 2
+    label.font_horizontal_multiplier = 2
+    label.font_vertical_multiplier = 2
+    label.left_margin = 50
+    label.draw_barcode(50,180,0,1,5,15,120,false,"#{location.location_id}")
+    label.draw_multi_text("#{location.name}")
+    label.print(1)
+  end
+
   private
 
   def get_facility_phone

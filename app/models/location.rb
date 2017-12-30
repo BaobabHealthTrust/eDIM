@@ -2,8 +2,12 @@ class Location < ActiveRecord::Base
   establish_connection Registration
   self.table_name = "location"
   self.primary_key = "location_id"
+  include Openmrs
 
   cattr_accessor :current_location
+  before_create :before_create
+  before_update :before_save
+  before_save :before_save
 
   def site_id
     Location.current_health_center.location_id.to_s
