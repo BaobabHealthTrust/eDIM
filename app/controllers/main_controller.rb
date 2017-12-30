@@ -67,23 +67,23 @@ class MainController < ApplicationController
   def prescription_report
     case params[:report_duration]
       when t('forms.options.daily')
-        @report_type = "#{t('menu.terms.daily_report')} #{l(params[:start_date].to_date, format:'%d %B, %Y')}"
+        @report_type = "Daily prescription report for #{l(params[:start_date].to_date, format:'%d %B, %Y')}"
         start_date = params[:start_date].to_date.strftime('%Y-%m-%d 00:00:00')
         end_date = params[:start_date].to_date.strftime('%Y-%m-%d 23:59:59')
 
       when t('forms.options.weekly')
-        @report_type = "#{t('menu.terms.weekly_report')} #{l(params[:start_date].to_date.beginning_of_week, format:'%d %B, %Y')}
+        @report_type = "Weekly prescription report from #{l(params[:start_date].to_date.beginning_of_week, format:'%d %B, %Y')}
         #{t('menu.terms.to')} #{l(params[:start_date].to_date.end_of_week, format: '%d %B, %Y')}"
 
         start_date = params[:start_date].to_date.beginning_of_week.strftime('%Y-%m-%d 00:00:00')
         end_date = params[:start_date].to_date.end_of_week.strftime('%Y-%m-%d 23:59:59')
 
       when t('forms.options.monthly')
-        @report_type = "#{t('menu.terms.monthly_report')} #{l(params[:start_date].to_date, format: '%B %Y')}"
+        @report_type = "Monthly prescription report for #{l(params[:start_date].to_date, format: '%B %Y')}"
         start_date = params[:start_date].to_date.beginning_of_month.strftime('%Y-%m-%d 00:00:00')
         end_date = params[:start_date].to_date.end_of_month.strftime('%Y-%m-%d 23:59:59')
       when t('forms.options.range')
-        @report_type = "#{t('menu.terms.custom_report')} #{l(params[:start_date].to_date, format: '%d %B, %Y')}
+        @report_type = "Prescription report from #{l(params[:start_date].to_date, format: '%d %B, %Y')}
         #{t('menu.terms.to')} #{l(params[:end_date].to_date, format: '%d %B, %Y')}"
         start_date = params[:start_date].to_date.strftime('%Y-%m-%d 00:00:00')
         end_date = params[:end_date].to_date.strftime('%Y-%m-%d 23:59:59')
@@ -94,7 +94,7 @@ class MainController < ApplicationController
   end
 
   def stores_report
-    @report_type,start_date,end_date = resolve_durations(params[:report_duration],params[:start_date],params[:end_date])
+    @report_type,start_date,end_date = resolve_durations(params[:report_duration],'Stores Report',params[:start_date],params[:end_date])
 
     if params[:locations].include? 'All Storerooms'
       locations = GeneralInventory.where(gn_inventory_id: Issue.all.pluck(:inventory_id)).pluck(:location_id)
@@ -133,26 +133,26 @@ class MainController < ApplicationController
 
   private
 
-  def resolve_durations(report_type,start_date,end_date)
+  def resolve_durations(report_type,report_title,start_date,end_date)
     case report_type
       when t('forms.options.daily')
-        report_title = "#{t('menu.terms.daily_report')} #{l(start_date.to_date, format:'%d %B, %Y')}"
+        report_title = "#{report_title} #{l(start_date.to_date, format:'%d %B, %Y')}"
         starting_date = start_date.to_date.strftime('%Y-%m-%d 00:00:00')
         ending_date = start_date.to_date.strftime('%Y-%m-%d 23:59:59')
 
       when t('forms.options.weekly')
-        report_title = "#{t('menu.terms.weekly_report')} #{l(start_date.to_date.beginning_of_week, format:'%d %B, %Y')}
+        report_title = "#{report_title} #{l(start_date.to_date.beginning_of_week, format:'%d %B, %Y')}
         #{t('menu.terms.to')} #{l(start_date.to_date.end_of_week, format: '%d %B, %Y')}"
 
         starting_date = start_date.to_date.beginning_of_week.strftime('%Y-%m-%d 00:00:00')
         ending_date = start_date.to_date.end_of_week.strftime('%Y-%m-%d 23:59:59')
 
       when t('forms.options.monthly')
-        report_title = "#{t('menu.terms.monthly_report')} #{l(start_date.to_date, format: '%B %Y')}"
+        report_title = "#{report_title} #{l(start_date.to_date, format: '%B %Y')}"
         starting_date = start_date.to_date.beginning_of_month.strftime('%Y-%m-%d 00:00:00')
         ending_date = start_date.to_date.end_of_month.strftime('%Y-%m-%d 23:59:59')
       when t('forms.options.range')
-        report_title = "#{t('menu.terms.custom_report')} #{l(start_date.to_date, format: '%d %B, %Y')}
+        report_title = "#{report_title} #{l(start_date.to_date, format: '%d %B, %Y')}
         #{t('menu.terms.to')} #{l(end_date.to_date, format: '%d %B, %Y')}"
         starting_date = start_date.to_date.strftime('%Y-%m-%d 00:00:00')
         ending_date = end_date.to_date.strftime('%Y-%m-%d 23:59:59')
