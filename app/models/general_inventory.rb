@@ -38,6 +38,10 @@ class GeneralInventory < ActiveRecord::Base
 
     return false
   end
+
+  def dose_form
+    self.drug.dose_form
+  end
   private
 
   def complete_record

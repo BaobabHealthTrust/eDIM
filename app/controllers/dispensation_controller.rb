@@ -1,11 +1,13 @@
 class DispensationController < ApplicationController
   def refill
-
+    #Function to dispense items
     @patient = Patient.find(params[:patient_id])
 
     GeneralInventory.transaction do
       item = GeneralInventory.where("gn_identifier = ? ", params[:bottle_id]).lock(true).first
-      item.current_quantity = item.current_quantity.to_i - params[:quantity].to_i
+      is_a_bottle = Misc.bottle_item(params[:administration],item.dose_form)
+      qty = (is_a_bottle ? 1 : params[:quantity].to_i)
+      item.current_quantity = item.current_quantity.to_i - qty
       item.save
 
       if item.errors.blank?
@@ -13,8 +15,8 @@ class DispensationController < ApplicationController
         @new_prescription.patient_id = @patient.id
         @new_prescription.drug_id = item.drug_id
         @new_prescription.directions = Misc.create_directions(params[:dose], params[:administration],params[:frequency],params[:doseType])
-        @new_prescription.quantity = params[:quantity]
-        @new_prescription.amount_dispensed = params[:quantity]
+        @new_prescription.quantity = qty
+        @new_prescription.amount_dispensed = qty
         @new_prescription.provider_id = User.current.id
         @new_prescription.date_prescribed = Time.current
         @new_prescription.save

@@ -84,36 +84,16 @@ module Misc
     end
   end
 
-  def self.reorder_meds(patient_id, drug_code)
-
-    max_date = PmapInventory.select("MAX(date_received) as date_received").where("voided = ? AND rxaui = ? AND patient_id = ?",
-                                                                                 false, drug_code, patient_id)
-
-    if max_date.blank?
-      return false
-    else
-      pmap_med = PmapInventory.select("sum(received_quantity) as received_quantity, sum(current_quantity) as
-                                       current_quantity").where("voided = ? AND rxaui = ? AND patient_id =  ? AND
-                                       date_received = ?", false, drug_code, patient_id,max_date.first.date_received)
-
-      (pmap_med || []).each do |main_item|
-        if (main_item.current_quantity.to_f/main_item.received_quantity.to_f) < 0.50
-          return true
-        end
-      end
-      return false
-    end
-  end
 
   def self.calculate_gn_thresholds
 
     sets = get_threshold_sets
 
-    items = GeneralInventory.where("voided = ?", false).group(:rxaui).sum(:current_quantity)
+    items = GeneralInventory.where("voided = ?", false).group(:drug_id).sum(:current_quantity)
 
-    (items || []).each do |rxaui, count|
+    (items || []).each do |drug_id, count|
       (sets || []).each do |id,threshold|
-        if threshold["items"].include? rxaui
+        if threshold["items"].include? drug_id
           threshold["count"] += count
         end
       end
@@ -155,6 +135,17 @@ module Misc
     label.draw_barcode(50,180,0,1,5,15,120,false,"#{location.location_id}")
     label.draw_multi_text("#{location.name}")
     label.print(1)
+  end
+
+  def self.bottle_item(route, dose_form)
+    forms = %w[Suspension Inhalant Spray Cream Foam Oil Solution Lotion Bar
+    Gel Ointment Paste Powder]
+    routes = %w[Oral Respiratory Topical Injection Other]
+    if forms.include?(dose_form) && routes.include?(route)
+      return true
+    else
+      return false
+    end
   end
 
   private
