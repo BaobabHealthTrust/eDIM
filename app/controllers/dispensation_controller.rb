@@ -6,6 +6,7 @@ class DispensationController < ApplicationController
     GeneralInventory.transaction do
       item = GeneralInventory.where("gn_identifier = ? ", params[:bottle_id]).lock(true).first
       is_a_bottle = Misc.bottle_item(params[:administration],item.dose_form)
+
       qty = (is_a_bottle ? 1 : params[:quantity].to_i)
       item.current_quantity = item.current_quantity.to_i - qty
       item.save

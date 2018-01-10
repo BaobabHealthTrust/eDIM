@@ -140,8 +140,9 @@ module Misc
   def self.bottle_item(route, dose_form)
     forms = %w[Suspension Inhalant Spray Cream Foam Oil Solution Lotion Bar
     Gel Ointment Paste Powder]
-    routes = %w[Oral Respiratory Topical Injection Other]
-    if forms.include?(dose_form) && routes.include?(route)
+    routes = %w[Oral Respiratory Topical]
+
+    if forms.include?(dose_form.titleize) && routes.include?(route.titleize)
       return true
     else
       return false
