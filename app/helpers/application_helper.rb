@@ -28,6 +28,10 @@ module ApplicationHelper
     YAML.load_file("#{Rails.root}/config/application.yml")['facility_name']
   end
 
+  def anonymous_dispensation
+    YAML.load_file("#{Rails.root}/config/application.yml")['allow_anonymous_dispense'] rescue false
+  end
+
   def user_roles
     return ["Administrator", "Pharmacist"]
   end

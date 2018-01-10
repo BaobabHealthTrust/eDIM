@@ -47,7 +47,7 @@ module Misc
     label.left_margin = 50
     #label.draw_text("Rx:#{rx_id}",450,10,0,4,1,1,true)
     #label.draw_multi_text("#{Misc.get_facility_name}",{:column_width => 570})
-    label.draw_multi_text("Patient: #{patient_name}",{:column_width => 570})
+    label.draw_multi_text("Patient: #{patient_name}",{:column_width => 570}) if !patient_name.blank?
     label.draw_multi_text("#{item}",{:column_width => 570})
     label.draw_multi_text("Dir : #{directions}",{:column_width => 570})
     label.draw_multi_text("QTY : #{quantity}",{:column_width => 570})

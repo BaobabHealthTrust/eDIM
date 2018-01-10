@@ -18,6 +18,9 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by_username(session[:user]) if session[:user]
   end
 
+  def anonymous_dispensation
+    YAML.load_file("#{Rails.root}/config/application.yml")['allow_anonymous_dispense'] rescue false
+  end
   protected
 
   def check_logged_in

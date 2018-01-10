@@ -614,14 +614,6 @@ div.panel h2 {
     height: 230px;
 }
 
-.female {
-    background:url(../images/female.gif) center no-repeat;
-}
-
-.male {
-    background:url(../images/male.gif) center no-repeat;
-}
-
 .menu_button {
     height: 60px;
     margin: 0.5%;

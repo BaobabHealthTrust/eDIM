@@ -1,19 +1,20 @@
 class DispensationController < ApplicationController
   def create
     #Function to dispense items
-    @patient = Patient.find(params[:patient_id])
+    @patient = Patient.find(params[:patient_id]) if !params[:patient_id].blank?
+
 
     GeneralInventory.transaction do
       item = GeneralInventory.where("gn_identifier = ? ", params[:bottle_id]).lock(true).first
       is_a_bottle = Misc.bottle_item(params[:administration],item.dose_form)
-
       qty = (is_a_bottle ? 1 : params[:quantity].to_i)
       item.current_quantity = item.current_quantity.to_i - qty
       item.save
 
+      return_path = (params[:patient_id].blank? ? "/general_inventory/#{item.gn_identifier}" : "/patients/#{@patient.id}")
       if item.errors.blank?
         @new_prescription = Prescription.new
-        @new_prescription.patient_id = @patient.id
+        @new_prescription.patient_id = @patient.id if !params[:patient_id].blank?
         @new_prescription.drug_id = item.drug_id
         @new_prescription.directions = Misc.create_directions(params[:dose], params[:administration],params[:frequency],params[:doseType])
         @new_prescription.quantity = qty
@@ -27,13 +28,13 @@ class DispensationController < ApplicationController
                                              :dispensation_date => Time.current, :dispensed_by => User.current.id})
 
         if @dispensation.errors.blank?
-          print_and_redirect("/print_dispensation_label/#{@new_prescription.id}", "/patients/#{@patient.id}") and return
+          print_and_redirect("/print_dispensation_label/#{@new_prescription.id}", return_path) and return
         end
       else
         flash[:errors] = "Insufficient stock on hand"
       end
     end
-    redirect_to "/patients/#{@patient.id}" and return
+    redirect_to return_path and return
   end
 
   def print_dispensation_label
