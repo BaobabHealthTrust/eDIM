@@ -78,7 +78,7 @@
                 </table>
             </div>
             <div style="display: table-cell;border: 2px solid black;border-width: 0px 0px 0px 2px;height: 70vh;">
-              <%= form_for :prescription, :html => { :class => "form-horizontal pmap_inventory" }, :url => "/refill"  do |f| %>
+              <%= form_for :prescription,method: 'POST',:url => dispensation_index_path  do |f| %>
               <div style="position: absolute;left: 72vw;top: 80vh;" onmousedown="showDispenseDiv('doseDiv')" class="nextButton" id="dispNext">
                 <%= t('forms.buttons.next')%>
               </div>

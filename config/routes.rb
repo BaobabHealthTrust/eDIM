@@ -47,8 +47,6 @@ Rails.application.routes.draw do
 
 
   ###################### Dispensation Controller ##############################
-  get "/dispensation/refill"
-  post "/refill" => "dispensation#refill"
   get "/print_dispensation_label/:id" => "dispensation#print_dispensation_label"
   get "/void_dispensation/:id" => "dispensation#destroy"
 

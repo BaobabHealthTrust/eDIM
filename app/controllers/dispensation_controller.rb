@@ -1,5 +1,5 @@
 class DispensationController < ApplicationController
-  def refill
+  def create
     #Function to dispense items
     @patient = Patient.find(params[:patient_id])
 
