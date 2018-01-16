@@ -15,7 +15,7 @@
         <td>
           <select style='width: 100%;'  name='drug_category' id='drug_category' helptext="<%= t('forms.labels.drug_category')%>"
                   doublepane="false">
-            <% (drug_categories || []).each do |option| %>
+            <% (current_drug_categories || []).each do |option| %>
               <option value="<%= option%>"><%= option.titleize %></option>
             <% end %>
           </select>

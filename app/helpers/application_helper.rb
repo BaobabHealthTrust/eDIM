@@ -8,6 +8,11 @@ module ApplicationHelper
     DrugCategory.where(:voided => false).collect{|x| x.category}
   end
 
+  def current_drug_categories
+    active_category = Drug.select("DISTINCT drug_category_id").collect{|x| x.drug_category_id}
+    DrugCategory.where(drug_category_id: active_category).pluck(:category)
+  end
+
   def dose_forms
      JSON.parse(File.open("#{Rails.root}/db/app_options.json").read)["dose_forms"] rescue []
   end
