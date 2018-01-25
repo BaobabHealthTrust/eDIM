@@ -33,7 +33,7 @@ class DispensationController < ApplicationController
             print_and_redirect("/print_dispensation_label/#{@new_prescription.id}", return_path) and return
           else
             flash[:notice] = 'Insufficient quantity. Top up from another bottle'
-            redirect_to "/prescription/#{@new_prescription.id}" and return
+            redirect_to "/prescriptions/#{@new_prescription.id}" and return
           end
         end
       else
@@ -69,7 +69,7 @@ class DispensationController < ApplicationController
             print_and_redirect("/print_dispensation_label/#{@prescription.id}", return_path) and return
           else
             flash[:notice] = 'Insufficient quantity. Top up from another bottle'
-            redirect_to "/prescription/#{@prescription.id}" and return
+            redirect_to "/prescriptions/#{@prescription.id}" and return
           end
         end
       else
