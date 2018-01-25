@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  get 'prescriptions/index'
+
+  get 'prescriptions/show'
+
+  get 'prescriptions/create'
+
+  get 'prescriptions/edit'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -58,6 +67,12 @@ Rails.application.routes.draw do
 
   resources :mobile_visit
   resources :mobile_visit_product
+  resources :drug_threshold
+  resources :prescriptions
+  resources :drug
+  resources :patient_identifiers
+
+
   resources :general_inventory do
     post 'pre_packing'
     collection do
@@ -66,22 +81,26 @@ Rails.application.routes.draw do
       post 'merge'
     end
   end
-  resources :drug_threshold
+
   resources :patients do
     collection do
       get 'given_names'
       get 'family_names'
     end
   end
-  resources :prescription
+
   resources :user do
     collection do
       get 'roles'
     end
   end
-  resources :dispensation
-  resources :drug
-  resources :patient_identifiers
+
+  resources :dispensation do
+    collection do
+      post 'refill'
+    end
+  end
+
   resources :locations do
     collection do
       get 'search'
@@ -89,12 +108,14 @@ Rails.application.routes.draw do
       get 'suggestions'
     end
   end
+
   resources :issues do
     collection do
       get 'select'
       post 'list'
     end
   end
+
   resources :sessions do
     collection do
       post 'login' , action: :create

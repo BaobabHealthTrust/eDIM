@@ -431,16 +431,6 @@
 
     }
 
-    function append(item,control){
-      input = document.getElementById(control);
-      if (item == "del"){
-        input.value = qty.value.substring(0,input.value.toString().length-1)
-      }
-      else
-      {
-        input.value = input.value.toString() + item;
-      }
-    }
 
     function setRoute(route) {
       document.getElementById("route_type").innerHTML = route;
@@ -466,14 +456,7 @@
           {
             if (checkRadio(checkdirections)){
               if (parseFloat(document.getElementById('qty').value) > 0){
-                  if ((parseFloat(document.getElementById('currQty').innerHTML) >= parseFloat($('#qty')[0].value)) || ($('#extraBtl')[0].value.length > 0))
-                  {
-                      document.forms[0].submit()
-                  }
-                  else
-                  {
-                      showDispenseDiv('extDiv');
-                  }
+                  document.forms[0].submit()
               }
               else {
                 showDispenseDiv('qtyDiv');

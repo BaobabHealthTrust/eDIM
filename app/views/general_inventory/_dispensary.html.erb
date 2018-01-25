@@ -31,23 +31,23 @@
           <div style="margin-top: 5px;">
             <table width="100%" cellspacing="20" >
               <tr>
-                <td class="customButton" onmousedown="append(1);"><span>1</span></td>
-                <td class="customButton" onmousedown="append(2);"><span>2</span></td>
-                <td class="customButton" onmousedown="append(3);"><span>3</span></td>
+                <td class="customButton" onmousedown="append(1,'packQty');"><span>1</span></td>
+                <td class="customButton" onmousedown="append(2,'packQty');"><span>2</span></td>
+                <td class="customButton" onmousedown="append(3,'packQty');"><span>3</span></td>
               </tr>
               <tr>
-                <td class="customButton" onmousedown="append(4);"><span>4</span></td>
-                <td class="customButton" onmousedown="append(5);"><span>5</span></td>
-                <td class="customButton" onmousedown="append(6);"><span>6</span></td>
+                <td class="customButton" onmousedown="append(4,'packQty');"><span>4</span></td>
+                <td class="customButton" onmousedown="append(5,'packQty');"><span>5</span></td>
+                <td class="customButton" onmousedown="append(6,'packQty');"><span>6</span></td>
               </tr>
               <tr>
-                <td class="customButton" onmousedown="append(7);"><span>7</span></td>
-                <td class="customButton" onmousedown="append(8);"><span>8</span></td>
-                <td class="customButton" onmousedown="append(9);"><span>9</span></td>
+                <td class="customButton" onmousedown="append(7,'packQty');"><span>7</span></td>
+                <td class="customButton" onmousedown="append(8,'packQty');"><span>8</span></td>
+                <td class="customButton" onmousedown="append(9,'packQty');"><span>9</span></td>
               </tr>
               <tr>
-                <td class="customButton" onmousedown="append(0);"><span>0</span></td>
-                <td class="customButton" onmousedown="append('del');"><span>del</span></td>
+                <td class="customButton" onmousedown="append(0,'packQty');"><span>0</span></td>
+                <td class="customButton" onmousedown="append('del','packQty');"><span>del</span></td>
                 <td class="customButton" style="background-color: #00bf6f !important;" onmousedown="customPrePack();"><span>Pack</span></td>
               </tr>
             </table>
@@ -116,7 +116,7 @@
           </table>
         </div>
         <div style="display: table-cell;border: 2px solid black;border-width: 0px 0px 0px 2px;height: 70vh;">
-          <%= form_for :prescription,method: 'POST',:url => dispensation_index_path  do |f| %>
+          <%= form_for :prescription,method: 'POST',:url => dispensation_index_path,html: {id: 'dispenseForm'}  do |f| %>
               <div style="position: absolute;left: 72vw;top: 80vh;" onmousedown="showDispenseDiv('doseDiv')" class="nextButton" id="dispNext">
                 <%= t('forms.buttons.next')%>
               </div>
@@ -323,12 +323,6 @@
                   </table>
                 </div>
               </div>
-              <div class="mobi-div" id="extDiv" style="display: none;">
-                <div style="margin-top: 5px;">
-                  <label for="extBtl"><span style="font-weight: bold;font-size: 1.2em;"><%= t('forms.labels.enter_number_of_days')%></span></label> <br/>
-                  <input type="text" id="extraBtl" style="font-size: 1.2em;" name="extBtl" required>
-                </div>
-              </div>
               <input type="hidden" name="bottle_id" value="<%= @item.gn_identifier %>"/>
               <input type="hidden" name="quantity" id="dispensed_quantity"/>
           <% end %>
@@ -417,7 +411,7 @@
   <% end %>
 </div>
 
-<%= form_for :general_inventory, :url => "/general_inventory/#{@item.id}/pre_packing"  do |f| %>
+<%= form_for :general_inventory, :url => "/general_inventory/#{@item.id}/pre_packing", html: {id: 'prePackForm'}  do |f| %>
     <input type="hidden" name="bottle_id" id="bottle_id" value="<%= @item.gn_identifier%>"/>
     <input type="hidden" name="pre_pack_amount" id="pre_pack_amount" value="0"/>
 <% end %>
@@ -432,7 +426,7 @@
   }
   function prepack(amount) {
       $('#pre_pack_amount')[0].value = amount;
-      document.forms[0].submit();
+      document.forms["prePackForm"].submit();
   }
 
   function append(key){
@@ -464,6 +458,7 @@
           input.focus();
       }
   }
+
   function showDispenseDiv(option)
   {
       var tabs = ['routesDiv','doseDiv','directionsDiv','qtyDiv','doseTypeDiv'];
@@ -485,17 +480,6 @@
           button.innerHTML = '<%= t('forms.buttons.next')%>'
       }
 
-  }
-
-  function append(item,control){
-      input = document.getElementById(control);
-      if (item == "del"){
-          input.value = qty.value.substring(0,input.value.toString().length-1)
-      }
-      else
-      {
-          input.value = input.value.toString() + item;
-      }
   }
 
   function setRoute(route) {
@@ -522,14 +506,7 @@
               {
                   if (checkRadio(checkdirections)){
                       if (parseFloat(document.getElementById('qty').value) > 0){
-                          if ((parseFloat(document.getElementById('currQty').innerHTML) >= parseFloat($('#qty')[0].value)) || ($('#extraBtl')[0].value.length > 0))
-                          {
-                              document.forms[0].submit()
-                          }
-                          else
-                          {
-                              showDispenseDiv('extDiv');
-                          }
+                          document.forms["dispenseForm"].submit();
                       }
                       else {
                           showDispenseDiv('qtyDiv');

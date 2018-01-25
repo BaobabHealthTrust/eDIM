@@ -7,10 +7,11 @@ class DispensationController < ApplicationController
       item = GeneralInventory.where("gn_identifier = ? ", params[:bottle_id]).lock(true).first
       is_a_bottle = Misc.bottle_item(params[:administration],item.dose_form)
       qty = (is_a_bottle ? 1 : params[:quantity].to_i)
-      item.current_quantity = item.current_quantity.to_i - qty
+      amount_dispensed = ((item.current_quantity.to_i - qty) >= -1 ? qty : item.current_quantity.to_i)
+      item.current_quantity -= amount_dispensed
       item.save
 
-      return_path = (params[:patient_id].blank? ? "/" : "/patients/#{@patient.id}")
+      return_path = (params[:patient_id].blank? ? '/' : "/patients/#{@patient.id}")
 
       if item.errors.blank?
         @new_prescription = Prescription.new
@@ -18,20 +19,61 @@ class DispensationController < ApplicationController
         @new_prescription.drug_id = item.drug_id
         @new_prescription.directions = Misc.create_directions(params[:dose], params[:administration],params[:frequency],params[:doseType])
         @new_prescription.quantity = qty
-        @new_prescription.amount_dispensed = qty
+        @new_prescription.amount_dispensed = amount_dispensed
         @new_prescription.provider_id = User.current.id
         @new_prescription.date_prescribed = Time.current
         @new_prescription.save
 
         @dispensation = Dispensation.create({:rx_id => @new_prescription.id, :inventory_id => item.bottle_id,
-                                             :patient_id => @new_prescription.patient_id, :quantity => @new_prescription.amount_dispensed,
+                                             :patient_id => @new_prescription.patient_id, :quantity => amount_dispensed,
                                              :dispensation_date => Time.current, :dispensed_by => User.current.id})
 
         if @dispensation.errors.blank?
-          print_and_redirect("/print_dispensation_label/#{@new_prescription.id}", return_path) and return
+          if @new_prescription.quantity <= @new_prescription.amount_dispensed
+            print_and_redirect("/print_dispensation_label/#{@new_prescription.id}", return_path) and return
+          else
+            flash[:notice] = 'Insufficient quantity. Top up from another bottle'
+            redirect_to "/prescription/#{@new_prescription.id}" and return
+          end
         end
       else
-        flash[:errors] = "Insufficient stock on hand"
+        flash[:errors] = 'Could not create the dispensation'
+      end
+    end
+    redirect_to (return_path || "/") and return
+  end
+
+  def refill
+    #Function to fill a prescription
+
+    GeneralInventory.transaction do
+      item = GeneralInventory.where("gn_identifier = ? ", params[:bottle_id]).lock(true).first
+      qty = params[:quantity].to_i
+      amount_dispensed = ((item.current_quantity.to_i - qty) >= -1 ? qty : item.current_quantity.to_i)
+      item.current_quantity -= amount_dispensed
+      item.save
+
+      return_path = (params[:patient_id].blank? ? '/' : "/patients/#{params[:patient_id]}")
+
+      if item.errors.blank?
+        @prescription = Prescription.find(params[:prescription])
+        @prescription.amount_dispensed += amount_dispensed
+        @prescription.save
+
+        @dispensation = Dispensation.create({:rx_id => @prescription.id, :inventory_id => item.bottle_id,
+                                             :patient_id => @prescription.patient_id, :quantity => amount_dispensed,
+                                             :dispensation_date => Time.current, :dispensed_by => User.current.id})
+
+        if @dispensation.errors.blank?
+          if @prescription.quantity <= @prescription.amount_dispensed
+            print_and_redirect("/print_dispensation_label/#{@prescription.id}", return_path) and return
+          else
+            flash[:notice] = 'Insufficient quantity. Top up from another bottle'
+            redirect_to "/prescription/#{@prescription.id}" and return
+          end
+        end
+      else
+        flash[:errors] = 'Could not create the dispensation'
       end
     end
     redirect_to (return_path || "/") and return

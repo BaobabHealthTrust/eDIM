@@ -204,3 +204,14 @@ function hideModal(modalDiv){
     var modal = document.getElementById(modalDiv);
     modal.style.display = "none";
 }
+
+function append(item,control){
+    input = document.getElementById(control);
+    if (item == "del"){
+        input.value = input.value.substring(0,input.value.toString().length-1)
+    }
+    else
+    {
+        input.value = input.value.toString() + item;
+    }
+}
