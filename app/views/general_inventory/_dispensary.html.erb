@@ -429,22 +429,6 @@
       document.forms["prePackForm"].submit();
   }
 
-  function append(key){
-      var input = document.getElementById("packQty");
-
-      if (key != "del")
-      {
-          input.value = input.value.toString().trim() + key;
-
-      }
-      else
-      {
-          var temp = parseInt(input.value).toString().trim();
-          temp = parseFloat(temp.substring(0,temp.length-1));
-          input.value = (temp == "NaN" ? "" : temp);
-      }
-  }
-
   function customPrePack()
   {
       var input = document.getElementById("packQty");
