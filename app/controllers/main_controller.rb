@@ -96,8 +96,13 @@ class MainController < ApplicationController
   def stores_report
     @report_type,start_date,end_date = resolve_durations(params[:report_duration],'Stores Report',params[:start_date],params[:end_date])
 
-    if params[:locations].include? 'All Storerooms'
-      locations = GeneralInventory.where(gn_inventory_id: Issue.all.pluck(:inventory_id)).pluck(:location_id)
+    if params[:locations].include? 'All Locations'
+      issued = Issue.all.pluck(:inventory_id)
+      if issued.blank?
+        locations = GeneralInventory.all.pluck(:location_id).uniq.join(',') rescue []
+      else
+        locations = GeneralInventory.where(gn_inventory_id: issued).pluck(:location_id).uniq.join(',') rescue []
+      end
     else
       locations = Location.where(name: params[:locations]).pluck(:location_id).join(',')
     end
@@ -106,21 +111,24 @@ class MainController < ApplicationController
                                         SUM(received_quantity) as received_quantity'
                                       ).where('voided = ? and location_id in (?) and date_received BETWEEN ? AND ?',
                                               false,locations,start_date.to_date.strftime('%Y-%m-%d'),
-                                              end_date.to_date.strftime('%Y-%m-%d')).group('drug_id')
+                                              end_date.to_date.strftime('%Y-%m-%d')).group('drug_id') rescue []
 
-    issues = Issue.select(:inventory_id,:quantity).where("issue_date BETWEEN '#{start_date}' and '#{end_date}'
-                              and location_id in (#{locations}) and voided = false")
+    unless locations.blank?
+      issues = Issue.select(:inventory_id,:quantity).where("issue_date BETWEEN '#{start_date}' and '#{end_date}'
+                              and location_id in (#{(locations)}) and voided = false") rescue []
 
-    later_issues = Issue.select(:inventory_id,:quantity).where("issue_date > '#{end_date}' and
-                                                                location_id in (#{locations}) and voided = false")
+      later_issues = Issue.select(:inventory_id,:quantity).where("issue_date > '#{end_date}' and
+                                                                location_id in (#{locations}) and voided = false") rescue []
+
+    end
 
     current_stock = GeneralInventory.select('SUM(current_quantity) as current_quantity,
                                             drug_id').where('voided = ? and date_received <= ? and location_id in (?)',
                                                             false, end_date.to_date.strftime('%Y-%m-%d'),locations
-                                                            ).group("drug_id")
+                                                            ).group("drug_id") rescue []
 
     #getting drug ids for the issued items
-    issue_ids = (issues.collect { |x| x.inventory_id } + later_issues.collect { |x| x.inventory_id }).uniq
+    issue_ids = (issues.collect { |x| x.inventory_id } + later_issues.collect { |x| x.inventory_id }).uniq rescue []
     drug_map = Hash[*GeneralInventory.where('gn_inventory_id in (?) AND date_received <= ?',issue_ids,
                                             end_date.to_date.strftime('%Y-%m-%d')).pluck(:gn_inventory_id, :drug_id).flatten(1)]
 

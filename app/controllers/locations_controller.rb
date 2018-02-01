@@ -59,7 +59,7 @@ class LocationsController < ApplicationController
 
       location_tag_map = LocationTagMap.new
       location_tag_map.location_id = location.id
-      location_tag_map.location_tag_id = LocationTag.find_by_name("Workstation location").id
+      location_tag_map.location_tag_id = LocationTag.find_by_name('Workstation location').id
       result = location_tag_map.save
 
       if result == true then
