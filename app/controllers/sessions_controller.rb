@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
     location = Location.find(params[:location]) rescue nil
     location ||= Location.find_by_name(params[:location]) rescue nil
 
-    if location.blank?
+    if location.blank? || location.is_a_workstation?
       flash[:error] = "Invalid workstation location"
       redirect_to '/sessions/add_location' and return
     else

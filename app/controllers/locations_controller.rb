@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   def suggestions
-    workstation_id = LocationTag.select(:location_tag_id).find_by_name(["workstation location",])
+    workstation_id = LocationTag.select(:location_tag_id).where(name: ['workstation location'])
     locations = workstation_id.location_tag_map.collect{|x| x.location_id}
     names = Location.select(:name, :location_id).where("name LIKE '%#{params[:search_string]}%'
                                                         AND location_id in (?)", locations).map do |v|
@@ -17,8 +17,8 @@ class LocationsController < ApplicationController
 
   def search
 
-    workstation_id = LocationTag.select(:location_tag_id).find_by_name("workstation location")
-    locations = workstation_id.location_tag_map.collect{|x| x.location_id}
+    workstation_id = LocationTag.select(:location_tag_id).where(name: 'workstation location')
+    locations = LocationTagMap.where(location_tag_id: workstation_id.collect{|i| i.location_tag_id}).collect{|x| x.location_id}
     names = Location.select(:name, :location_id).where("name LIKE '%#{params[:search_string]}%'
                                                         AND location_id in (?)", locations).map do |v|
       "<li value=\"#{v.location_id}\">#{v.name}</li>"
@@ -59,7 +59,7 @@ class LocationsController < ApplicationController
 
       location_tag_map = LocationTagMap.new
       location_tag_map.location_id = location.id
-      location_tag_map.location_tag_id = LocationTag.find_by_name('Workstation location').id
+      location_tag_map.location_tag_id = LocationTag.where(name: 'Workstation location').first.id rescue nil
       result = location_tag_map.save
 
       if result == true then

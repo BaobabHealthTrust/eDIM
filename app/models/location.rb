@@ -48,5 +48,11 @@ class Location < ActiveRecord::Base
   def self.current_arv_code
     current_health_center.neighborhood_cell rescue nil
   end
+
+  def is_a_workstation?
+    workstation_id = LocationTag.select(:location_tag_id).where(name: ['workstation location']).collect{|x| x.location_tag_id}
+    tag_map = LocationTagMap.where(location_id: self.location_id, location_tag_id: workstation_id)
+    return tag_map.blank?
+  end
 end
 
